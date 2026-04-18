@@ -1,0 +1,58 @@
+# all non-app services belond to the `not-app` profile, so they can be spun up individually
+# all services belong to the default profile so they can be controlled by regular docker compose commands
+
+services:
+  db:
+    container_name: ${FOR_DJANGO_POSTGRES_HOST}
+    image: postgres:18-alpine
+    profiles: ["not-app", ""]
+    # persist data beyond lifetime of container
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=${FOR_DJANGO_POSTGRES_DB}
+      - POSTGRES_USER=${FOR_DJANGO_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${FOR_DJANGO_POSTGRES_PASSWORD}
+    ports: # Fixed at 5432 since this is what you connect to manually to do things like create migrations
+      - 5432:5432
+    expose: # For internal docker network
+      - ${FOR_DJANGO_POSTGRES_PORT:-5432}
+    healthcheck: # So docker compose can wait for this service, but uses the env vars we just set!
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 1s
+      timeout: 1s
+      retries: 10
+      start_period: 1s
+
+  web:
+    container_name: webapp_dev
+    # the name of the dev image that gets built and saved in your local docker hub
+    image: hairbursh_dev:latest_dev
+    profiles: ["app", ""]
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        MY_UID: ${MY_UID:-4323}
+        MY_GID: ${MY_GID:-4323}
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    user: "${MY_GID:-4323}:${MY_UID:-4323}"
+    post_start:
+      - command: python manage.py help
+        user: "${MY_GID:-4323}:${MY_UID:-4323}"
+    develop:
+      watch: # For hot-reloading in dev when app directory changes
+        - path: .
+          action: sync
+          target: /app/
+          ignore:
+            - ./.venv
+            - .venv
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

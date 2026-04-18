@@ -9,7 +9,7 @@ This is not meant to be a tutorial, but more of an audit log. I will learn that 
 
 ## Goals
 
-I want to create a Django full-stack SaaS app. I want everything about the app to follow best development practices (a little nebulous but let me clarify later). The feeling I should have towards the end of this is complete understanding of every part of the application lifecycle. 
+I want to create a Django full-stack SaaS app. I want everything about the app to follow best development practices (a little nebulous but let me clarify later). The feeling I should have towards the end of this is complete understanding of every part of the application lifecycle.
 
 The app will have no interesting features. It will be built out insofar as there will be users, subscriptions, and some demonstrations about
 
@@ -22,6 +22,9 @@ Developer Experience:
 3. use conventional commits for all git commit messages
 4. practice trunk-based development as much as possible
     - keep one version of code, small updates with clear rollback strategy.
+5. Keeping the development environment as close to production state as possible
+    - try and use same dockerfile
+    - figure out how to create dev versions of prod services (dev google login? dev db?)
 
 Technology:
 1. Django for web application
@@ -45,4 +48,3 @@ Deployment Strategy:
 CI/CD:
 1. Github actions for orchestration of testing / deployment
 2. blacksmith runners to perform CI/CD actions
-

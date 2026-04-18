@@ -6,3 +6,9 @@ PRECOMMIT_VERSION := "4.5.1"
 @install-pre-commit:
     echo "hello"
     cd {{ justfile_directory() }} && curl -L -o pre-commit https://github.com/pre-commit/pre-commit/releases/download/v{{PRECOMMIT_VERSION}}/pre-commit-{{PRECOMMIT_VERSION}}.pyz
+
+
+# copies the .env.example file and creates a .env file
+@env:
+    echo "copying .env.example to .env"
+    cd {{ justfile_directory() }} && [ ! -f .env ] && cp .env.example .env || echo ".env file already exists. please delete it first."

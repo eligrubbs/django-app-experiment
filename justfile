@@ -2,4 +2,5 @@
 # If you create a `justfile` in a child directory, that one will be used instead as the main one!
 
 
+mod dev "just_modules/dev.just"
 mod setup "just_modules/setup.just"
