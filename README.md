@@ -14,39 +14,9 @@ Companies I have heard used Django to scale:
 - Pintrest
 - Photoroom
 
-## Goal
+## How to use this repository
 
-The goal of this repository is get a website deployed while observing engineering best practices.
+Not only am I writing all of this code to learn, but I also want to have this repo serve as a time-machine of sorts so future me, or you reading this!, can go back and follow what I did when.
 
-I won't get everything right the first time.
+To that end, not only will I use git, but when I think I have reached a nice milestone, I'll create a tag of named something like `section-5-django-setup` which represents the end of that milestone, so between the two milestones `section-4-XXXX` and that, you can find. I'll try and keep each of them associated with their corresponding markdown files in the `my_journey` directory, but no promises!
 
-### Phase 1: Semi-uninformed Dev Basics
-
-I do not know a lot about Django, but I know enough about general python development to know how to set a solid foundation. 
-
-The goal of this phase is to create a development framework that encompasses using Django and supporting technologies. This phase will include:
-
-- pre-commit hooks for code consistency
-- guides on how to write tests and to track code coverage
-- using docker for consistent testing where applicable
-- github workflows for CI, running all tests
-- Establish how and where to document important decisions / learnings
-
-We are NOT focused on building specific Django features.
-
-## Phase 2: Basic Webapp Boilerplate Discovery
-
-Leverage the development framework set up in phase 1 to explore common Django features.
-
-- Creating Users
-- Auth
-- payments
-
-## Phase 3: Touching the Real World
-
-Exploring in development only gives a lot of velocity. Once I have a foundation for things this phase will kick off.
-
-- AWS ECR for docker image storage
-- github workflows to automatically build images and store them
-- render.com for web and database hosting
-- Terraform to manage all of that infrastructure
