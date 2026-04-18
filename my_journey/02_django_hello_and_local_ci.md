@@ -1,5 +1,8 @@
 # Django Hello World w/ Local CI Stuff
 
+In this section we want to set up a basic django app. We also want to add pre-commit hooks so that every commit conforms
+to certain standards, and that we can catch stupid errors early.
+
 ## Python / Django Setup
 
 ### uv setup
@@ -21,6 +24,12 @@ Looking at the posthog github repository, they set up their project as such:
 
 
 To that end, in the base directory, run `uv run django-admin startproject hairbrush .`.
+
+Then, for running the server in production, we will add gunicorn and uvicorn (for workers)
+
+```
+uv add gunicorn uvicorn[standard]
+```
 
 ### Verify setup
 
@@ -58,3 +67,13 @@ To install the pre-commit hooks, run from the project root directory
 chmod +x pre-commit
 ./pre-commit install
 ```
+
+### Ruff for code quality
+
+Run `uv add ruff --group=dev` to add `ruff` as a development dependency.
+
+Then notice all of the stuff in the pyproject.toml under sections like `[tool.ruff]`. Those are ruff-specific things.
+
+Those all change as I figure out what standards I like to follow
+
+Then, add ruff as a pre-commit hook for linting and formatting (see the pre-commit-config.yaml)
