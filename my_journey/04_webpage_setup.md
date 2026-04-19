@@ -18,7 +18,11 @@ Follow the instructions on the whitenoise [documentation](https://whitenoise.rea
 
 ## Site Metadata / Favicon Image
 
-TODO
+### Favicons
+
+Go to realfavicongenerator.net, upload your image (preferably svg) and follow the steps. Put the HTML template at `templates/web/components/facivon/html` and the assets in
+`static/images/favicons`
+
 
 ## Tailwind & DaisyUI Setup
 
