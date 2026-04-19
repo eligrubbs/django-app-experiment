@@ -3,20 +3,20 @@
 
 services:
   db:
-    container_name: ${FOR_DJANGO_POSTGRES_HOST}
+    container_name: ${POSTGRES_HOST}
     image: postgres:18-alpine
     profiles: ["not-app", ""]
     # persist data beyond lifetime of container
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/
     environment:
-      - POSTGRES_DB=${FOR_DJANGO_POSTGRES_DB}
-      - POSTGRES_USER=${FOR_DJANGO_POSTGRES_USER}
-      - POSTGRES_PASSWORD=${FOR_DJANGO_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports: # Fixed at 5432 since this is what you connect to manually to do things like create migrations
       - 5432:5432
     expose: # For internal docker network
-      - ${FOR_DJANGO_POSTGRES_PORT:-5432}
+      - ${POSTGRES_PORT:-5432}
     healthcheck: # So docker compose can wait for this service, but uses the env vars we just set!
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 1s
@@ -42,6 +42,7 @@ services:
     post_start:
       - command: python manage.py help
         user: "${MY_GID:-4323}:${MY_UID:-4323}"
+    env_file: .env # load local dev .env file
     develop:
       watch: # For hot-reloading in dev when app directory changes
         - path: .

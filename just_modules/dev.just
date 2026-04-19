@@ -7,6 +7,7 @@
 
     # build the dev app
     just dev build
+    just dev prune
 
     # spin up dependent services
     cd {{ justfile_directory() }} && docker compose --env-file=.env --profile=not-app up -d
@@ -39,3 +40,8 @@
 
 @manage *args:
     cd {{ justfile_directory() }} && docker compose --env-file=.env run --rm web python manage.py {{ args }}
+
+
+# remove docker compose volumes holding dev data you've accumulated
+@down-volumes:
+    cd {{ justfile_directory() }} && docker compose --env-file=.env down -v

@@ -23,4 +23,6 @@ We prefer to use the watch option (see the docker compose) because it is the bes
 
 ## Utility scripts
 
-Now that docker is set up, we create utility `just` recipes to spin the web server up and down
+Now that docker is set up, we create utility `just` recipes to spin the web server up and down and do various things related to docker containers.
+
+see `just_modules/dev.just` for the ones that were created.
