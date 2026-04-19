@@ -23,7 +23,19 @@ Follow the instructions on the whitenoise [documentation](https://whitenoise.rea
 Go to realfavicongenerator.net, upload your image (preferably svg) and follow the steps. Put the HTML template at `templates/web/components/facivon/html` and the assets in
 `static/images/favicons`
 
+### Site Metadata
+
+I don't know what to do for this. As things become clear later, I'll figure it out then.
 
 ## Tailwind & DaisyUI Setup
 
-TODO
+I am totally disconnected from best practices, javascipt build processes, packages, etc.
+
+To me, the simplest thing to do is to have as little javascript as possible. That means relying on HTMX, Alpine JS, and the simple tailwind css executable to manage CSS.
+
+1. Install the standalone tailwind cli tool and edit the executable name in the `dev.just` and `ci.just` submodules.
+2. Install daisyui javascript files from their [website](https://daisyui.com)
+
+Then, the dev and ci just modules should exist to create the output.css / minified output.css file respectively.
+
+3. Add a pre-commit hook to always minify the tailwind css on every commit.

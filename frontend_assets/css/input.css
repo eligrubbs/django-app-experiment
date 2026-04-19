@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist&display=swap");
+@import "tailwindcss" source(none);
+
+/* Reference Templates */
+@source "../../templates";
+/* Reload self and javascript files */
+@source "../*";
+
+@plugin "../js/daisyui.mjs";
+
+@theme {
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+}

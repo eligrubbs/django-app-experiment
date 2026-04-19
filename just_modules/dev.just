@@ -1,6 +1,16 @@
+tailwind_exec := "tailwindcss-v4.2.2"
 
 @defaut:
     just --list dev
+
+# Live-updates output.css. Takes over terminal.
+tailwind:
+    # Set working directory to project root. Not sure this matters because in input.css I only explicitely declare what I scan
+    {{ tailwind_exec }} \
+    --cwd {{ justfile_directory() }} \
+    -i {{ justfile_directory() }}/frontend_assets/css/input.css \
+    -o {{ justfile_directory() }}/static/css/output.css \
+    --watch --optimize
 
 # spin up infrastructure like it is in prod
 @up:
