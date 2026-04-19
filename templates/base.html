@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" {% if dark_mode %}class="dark" data-theme="{{ dark_theme }}"{% endif %}>
+<head>
+    <meta charset="utf-8">
+    {# IE compatibility #}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {# Mobile friendly #}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {# Tailwind #}
+    <!-- <link rel="stylesheet" href="{% static 'css/output.css' %}"> -->
+
+    {# Alpine.JS #}
+    <script defer src="{% static 'js/alpinejs.min.js' %}"></script>
+
+    {# HTMX #}
+    <script src="{% static 'js/htmx.min.js' %}"></script>
+    <script src="{% static 'js/response-targets.min.js' %}"></script>
+
+    {% block page_head %}
+    {% endblock %}
+</head>
+<body>
+
+{% block body %}
+{% endblock body %}
+
+{% block scripts %}
+{% endblock scripts %}
+</body>
+</html>

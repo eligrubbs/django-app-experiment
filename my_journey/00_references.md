@@ -9,3 +9,5 @@ This file will store the many blogs, videos, and resources I find that I feel ha
     - Examples of the basics / best practices on how to integrate with stripe
 - [Django SaaS App Tutorial](https://youtu.be/WbNNESIxJnY)
     - Very helpful to get your feet wet quick and de-mistify how hard it is to go to production.
+- [Django Scalable Project Structure](https://medium.com/@sizanmahmud08/django-folder-structure-best-practices-a-complete-guide-to-scalable-project-organization-508437899736)
+    - create a separate apps directory

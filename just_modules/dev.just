@@ -1,4 +1,7 @@
 
+@defaut:
+    just --list dev
+
 # spin up infrastructure like it is in prod
 @up:
     # To mimic production, start all services that are NOT the app

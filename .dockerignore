@@ -20,3 +20,5 @@ just_modules
 __pycache__
 .pytest_cache
 .git
+
+my_journey/
