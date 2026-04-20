@@ -1,0 +1,52 @@
+
+<div id="stickyHeaderWrapper" class="sticky top-0 z-50">
+  <header class="w-full min-h-16 border-base-300 border-b bg-background/80 backdrop-blur-lg">
+    <nav id="navbar-size-container" class="navbar mx-auto w-full max-w-screen-xl px-4">
+      <div class="navbar-start">
+        <a href="/"><strong>Hairbrush</strong></a>
+      </div>
+
+      <div class="navbar-center max-sm:hidden">
+        <ul class="menu menu-horizontal">
+          <li class="mx-2">
+            <a class="btn btn-ghost btn-sm font-medium text-sm">Platform</a>
+          </li>
+          <li class="mx-2">
+            <a class="btn btn-ghost btn-sm font-medium text-sm">Pricing</a>
+          </li>
+          <li class="mx-2">
+            <a class="btn btn-ghost btn-sm font-medium text-sm">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="navbar-end">
+        <ul class="menu">
+          <li>
+            <a class="btn btn-neutral btn-sm font-medium text-sm">Try it free</a>
+          </li>
+        </ul>
+        <div id="hamburgerForSmallScreen" class="min-sm:hidden">
+            <details class="dropdown dropdown-end">
+              <summary class="btn btn-ghost btn-sm">
+                <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-5 w-5 stroke-current md:h-6 md:w-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+              </summary>
+              <ul class="menu dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                <li class="mx-2">
+                  <a class="btn btn-ghost btn-sm font-medium text-sm">Platform</a>
+                </li>
+                <li class="mx-2">
+                  <a class="btn btn-ghost btn-sm font-medium text-sm">Pricing</a>
+                </li>
+                <li class="mx-2">
+                  <a class="btn btn-ghost btn-sm font-medium text-sm">Contact Us</a>
+                </li>
+              </ul>
+            </details>
+        </div>
+      </div>
+
+      {% include "web/components/dark_mode_selector.html" %}
+    </nav>
+  </header>
+</div>

@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" {% if dark_mode %}class="dark" data-theme="{{ dark_theme }}"{% endif %}>
+<html lang="en" {% if dark_mode %}class="dark" data-theme="{{ web.dark_theme }}"{% endif %}>
 <head>
     <meta charset="utf-8">
     {# IE compatibility #}
@@ -25,10 +25,49 @@
 </head>
 <body>
 
-{% block body %}
-{% endblock body %}
+  {% block body %}
+  {% endblock body %}
 
-{% block scripts %}
-{% endblock scripts %}
+  <script>
+    function syncDarkMode() {
+      // https://tailwindcss.com/docs/dark-mode
+      // change the dark and light theme values in settings.py to match the DaisyUI theme names
+      // to use for dark and light mode, and they will get updated here.
+      const darkTheme = '{{ web.dark_theme }}' || 'dark';
+      const lightTheme = '{{ web.light_theme }}' || 'light';
+      const systemTheme = 'system';
+
+      const theme = localStorage.getItem('theme') || systemTheme;
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      if (theme === darkTheme || (theme === systemTheme && prefersDark)) {
+        // document.documentElement.classList.add('dark');
+        document.documentElement.setAttribute('data-theme', darkTheme);
+        // set a cookie and use it during server rendering to avoid a flicker across page loads
+        document.cookie = `theme=${darkTheme};path=/;max-age=31536000`;
+      } else {
+        // document.documentElement.classList.remove('dark');
+        document.documentElement.setAttribute('data-theme', lightTheme);
+        document.cookie = `theme=${lightTheme};path=/;max-age=31536000`;
+      }
+    }
+    syncDarkMode();
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Watch for changes in the prefers-color-scheme
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addListener(syncDarkMode);
+
+      // Watch for theme changes - controlled by the selector in the nav
+      window.addEventListener('storage', (event) => {
+        if (event.key === 'theme') {
+          syncDarkMode();
+        }
+      });
+    });
+  </script>
+
+  {% block scripts %}
+  {% endblock scripts %}
 </body>
 </html>

@@ -39,3 +39,16 @@ To me, the simplest thing to do is to have as little javascript as possible. Tha
 Then, the dev and ci just modules should exist to create the output.css / minified output.css file respectively.
 
 3. Add a pre-commit hook to always minify the tailwind css on every commit.
+
+## Build Out Front Page
+
+Spend some time designing a basic home page.
+
+
+## Light / Dark Themes
+
+1. Create custom daisyUI themes in the tailwind `input.css` file.
+2. Declare the names of the light and dark themes in `settings.py` as the `LIGHT_THEME` and `DARK_THEME` variables.
+
+There is a context processor in the `web` app which puts these variable names into the template context. Then a javascript function in one of the base templates sets a listener for system theme changes, and manual theme changes.
+A template `web/components/dark_mode_selector.html` was created that lets you switch between light, dark, and system modes.

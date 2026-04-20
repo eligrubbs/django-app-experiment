@@ -80,6 +80,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                # Custom
+                "apps.web.context_processors.web_meta",
             ],
             "loaders": _DEFAULT_LOADERS if DEBUG else _CACHED_LOADERS,
         },
@@ -160,3 +162,9 @@ STORAGES = {
         # "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
+
+
+# light / dark mode daisy ui theme names.
+# they must be valid themes included in your tailwind.config.js file.
+LIGHT_THEME = "myLight"
+DARK_THEME = "myDark"
