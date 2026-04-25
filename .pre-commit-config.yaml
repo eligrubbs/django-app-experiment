@@ -4,6 +4,7 @@
 default_install_hook_types:
   - pre-commit
   - commit-msg
+  - pre-push
 
 repos:
   - repo: local
@@ -14,6 +15,12 @@ repos:
       files: server/src/glasscap/frontend/static/css/output.css
       language: unsupported
       entry: just ci tailwind-minify
+      pass_filenames: false
+    - id: heavy-tests
+      name: Run full dockerized test set
+      language: system
+      stages: [pre-push]
+      entry: just ci test
       pass_filenames: false
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0

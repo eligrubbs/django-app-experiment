@@ -20,41 +20,32 @@ tailwind:
 
     # build the dev app
     just dev build
-    just dev prune
+    just stack prune
 
     # spin up dependent services
-    cd {{ justfile_directory() }} && docker compose --env-file=.env --profile=not-app up -d
+    just stack::project=dev stack up-not-app
 
     # run pre-deploy command
     just dev predeploy
 
-    # deploy as normal
-    cd {{ justfile_directory() }} && docker compose --env-file=.env watch web
+    # deploy with live reload
+    just stack::project=dev stack watch-app
 
 # destroy docker infrastructure
 @down:
-    just dev prune
-    cd {{ justfile_directory() }} && docker compose --env-file=.env down
+    just stack::project=dev stack down
 
 # build the dev docker image
 @build:
-    cd {{ justfile_directory() }} && docker compose --env-file=.env build
-
+    just stack::project=dev stack build
 
 # run pre-deploy scripts on dev infrastructure
 @predeploy:
-    cd {{ justfile_directory() }} && docker compose --env-file=.env run --rm web /app/deploy/pre-deploy.sh
-
-# remove all dangling images.
-@prune:
-    # These accumulate as you make changes, and run docker compose up and such
-    cd {{ justfile_directory() }} && docker image prune -f
-
+    just stack::project=dev stack predeploy
 
 @manage *args:
-    cd {{ justfile_directory() }} && docker compose --env-file=.env run --rm web python manage.py {{ args }}
-
+    just stack::project=dev stack manage {{ args }}
 
 # remove docker compose volumes holding dev data you've accumulated
 @down-volumes:
-    cd {{ justfile_directory() }} && docker compose --env-file=.env down -v
+    just stack::project=dev stack down-volumes
