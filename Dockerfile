@@ -40,16 +40,16 @@ FROM debian:bookworm-slim
 ARG APP_DIR MY_UID MY_GID NON_ROOT_USER=runner
 
 # install dependencies for postgres
-RUN apt-get update && apt-get install -y \
-    # for postgres
-    libpq-dev \
-    # for Pillow
-    libjpeg-dev \
-    # for CairoSVG
-    libcairo2 \
-    # other
-    gcc \
-    && rm -rf /var/lib/apt/lists/*
+# RUN apt-get update && apt-get install -y \
+#     # for postgres
+#     libpq-dev \
+#     # for Pillow
+#     libjpeg-dev \
+#     # for CairoSVG
+#     libcairo2 \
+#     # other
+#     gcc \
+#     && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user to run things
 # alpine version

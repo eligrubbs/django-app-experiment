@@ -32,9 +32,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        MY_UID: ${MY_UID:-4323}
-        MY_GID: ${MY_GID:-4323}
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
@@ -42,7 +39,7 @@ services:
     post_start:
       - command: python manage.py help
         user: "${MY_GID:-4323}:${MY_UID:-4323}"
-    env_file: .env # load local dev .env file
+    env_file: ${ENV_FILENAME}
     develop:
       watch: # For hot-reloading in dev when app directory changes
         - path: .

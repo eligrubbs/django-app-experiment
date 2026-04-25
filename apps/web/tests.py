@@ -1,3 +1,8 @@
-# from django.test import TestCase
+from django.test import TestCase
 
-# Create your tests here.
+
+class FirstTestCase(TestCase):
+    """First test case class. Nothing actually app-related is tested here."""
+
+    def test_something(self):
+        assert True

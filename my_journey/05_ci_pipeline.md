@@ -11,7 +11,7 @@ What will this system look like? Simple.
     1. make a commit directly to main (don't do this...)
     2. make a branch with your changes, open a PR, merge changes.
 - Run tests often to ensure that new changes don't break anything
-    - Run unit tests after each commit
+    - Run tests after each commit / push
         - covered as part of pre-commit hooks
     - Run expensive integration / e2e tests when merged / pushed to main
 - After passing tests on merge / push to main, create artifact
@@ -20,20 +20,6 @@ What will this system look like? Simple.
 
 The output of a good CI/CD pipeline is an artifact which you have confidence in to supercede it's parent artifact.
 Coupled with a continuous deployment pipeline, you can move that built artifact up the environment hierarchy (dev, uat, prod) to release it.
-
-## Testing
-
-### Unit Tests
-
-Create unit tests often. These tests should test individual components, and should not really rely on any dependencies like docker. They should be very fast to run.
-
-Use the django test suite functionality to create and run these tests.
-
-### Integration / E2E Tests
-
-These tests mock or use real dependencies (a mail server, OAUTH provider, Database) to test the applications behavior.
-
-Use docker + django tests, and other tech potentially, to do this.
 
 ## Building Artifacts
 
@@ -65,3 +51,15 @@ Since we are choosing to use the github container repository, there is no config
                 ghcr.io/<your account / org>/<your repository>
 ...
 ```
+
+## Testing
+
+The application will always ship with it's tests, even in a Dockerfile. Invoking tests should always be done with the management script.
+
+Due to the availability of docker, we blur the lines heavily between strict unit tests, integration, and E2E tests. We believe pushing the complication as close to prod as possible in development will make everything easier when we get there.
+
+Therefore, to run tests, you should you the convenience `just` recipes in `ci` or `dev` which orchestrate spinning up a docker compose stack, running tests, and tearing everything down.
+
+1. On push to the remote repository, dockerized tests are run on your machine, you won't be able to push until they pass.
+    - This provides a soft gurantee that tests are always passing!
+2. On `Build` github action invocation, the artifact is built
