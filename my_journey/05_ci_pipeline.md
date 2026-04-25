@@ -52,3 +52,16 @@ You'll have to change the destination artifact repository to be your account's. 
 For simplicity, we will use the github container registry. For this free project, you get unlimited artifacts!
 
 The github container registry will recognize when you push your first image.
+
+Since we are choosing to use the github container repository, there is no configuration we have to do except change the destination container repository like so:
+
+```
+...
+- name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v6
+        with:
+            images: |
+                ghcr.io/<your account / org>/<your repository>
+...
+```

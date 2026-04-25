@@ -63,6 +63,8 @@ jobs:
           images: |
             ghcr.io/eligrubbs/django-app-experiment
           tags: |
+            type=ref,event=branch
+            type=ref,event=pr
             type=sha
             type=raw,value=latest,enable={{is_default_branch}}
       - uses: docker/build-push-action@v7
@@ -75,4 +77,5 @@ jobs:
           build-args: |
             MY_UID: 4323
             MY_GID: 4323
+          provenance: false # disable many artifacts for one workflow run to show up in the UI.
           platforms: linux/amd64
