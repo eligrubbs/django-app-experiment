@@ -62,4 +62,17 @@ Therefore, to run tests, you should you the convenience `just` recipes in `ci` o
 
 1. On push to the remote repository, dockerized tests are run on your machine, you won't be able to push until they pass.
     - This provides a soft gurantee that tests are always passing!
-2. On `Build` github action invocation, the artifact is built
+2. On PR open, a workflow is run which runs the same exact command we ran pre-push! The same tests are run. They should pass.
+3. On `Build` github action invocation, the artifact is built as described above.
+
+
+## Things you need to do
+
+- Create a justfile module called `stack.just`. Fill it with functions to manage the docker compose stack. Take a look at what is there right now. Then, go edit the dev and ci modules.
+- add a test in your django app.
+- create a pre-commit hook to run on push.
+- create a github workflow to run on PR creation.
+
+The best part is that the local tests are already so close to production. Since we have docker, we chose to push everything into that realm instead of mocking things. Even if we write tests with mocks, those are supposed to be cheap, so they should be easy to bundle together with the larger docker-based test suite and run it all together.
+
+Eventually true end-to-end testing will be important. At that stage a totally different directory and github workflow will have to be created, since end-to-end tests care only about the highest-level inputs and outputs.
