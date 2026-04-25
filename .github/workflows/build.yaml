@@ -4,7 +4,17 @@ on:
   push:
     branches: ["main"]
     paths:
-      - "!my_journey/*"
+      - "!my_journey/**"
+      - "apps/**"
+      - "deploy/**"
+      - "hairbrush/**"
+      - "static/**"
+      - "templates/**"
+      - ".github/workflows/build.yaml"
+      - "pyproject.toml"
+      - "manage.py"
+      - ".dockerignore"
+      - "Dockerfile"
   workflow_dispatch:
 
 jobs:
