@@ -1,0 +1,13 @@
+# Use your local credentials set variables so remote HCP Terraform runner can do bootstrap setup. Plus state is stored there
+@terraform-admin +args:
+    cd {{ invocation_directory() }} && \
+    terraform {{args}} \
+    -var="cli_set_tfe_token=$(jq -r '.credentials["app.terraform.io"].token' ~/.terraform.d/credentials.tfrc.json)" \
+
+
+# May be helpful in future for debugging hcp stuff... You'd have to creae a .env file and fill it with expected vars though...
+hcp-api:
+    (cd {{ invocation_directory() }} && export $(cat .env | xargs); curl \
+    --header "Authorization: Bearer $HCP_ORG_KEY" \
+    --request GET \
+    https://app.terraform.io/api/v2/organizations/hairbrush-org-12345/teams)
