@@ -36,12 +36,26 @@ We want a single source-of-truth for as much infrastructure as we can get. That 
 - Go follow the instructions in `terraform/admin_bootstrap` directory to create the foundational admin-invoked workspace.
 
 
-### Render.com
+### Web Services - Render.com
 
-Go create an account
+- Go create an account
+- Create a workspace, copy that ID
+- Go to your user settings, create an API key and copy it.
 
 ### Database - Neon.com
 
 - Go create an account
+- Create an organization
 - Create spending limit
-- Create a project called hairbrush with postgres 18
+
+Neon does not support an official terraform provider. Because of that we will not try and use terraform to manage that infrastructure.
+
+### DNS Records - Cloudflare
+
+- Make sure your custom domain has cloudflare as it's nameservers
+- Create an API key that only allows DNS edits
+
+### HCP Terraform Continued
+
+- Go run the `global` workspace in terraform. All that workspace does it create a place to store all secrets / variables for real infrastructure managing workspaces like `production` / `staging` to reference.
+- Go to the HCP Terraform UI, and enter the relevant API tokens / secrets / variables into the global variable set that was created
