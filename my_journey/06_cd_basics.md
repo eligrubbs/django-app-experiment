@@ -67,10 +67,16 @@ In summary:
 ### HCP Terraform Continued
 
 - Go to each workspace and run `terraform init`. That creates the empty workspaces. The `global` workspace might look for the other environments, so do this first!
+- In each HCP Terraform workspace, in the UI, set the Settings > General > Terraform Working Directory to the environment path in this repo (terraform/environments/global).
+    - This will allow remote runs to use modules declared in the repo at `terraform/modules`.
 - Go run the `global` workspace in terraform. All that workspace does it create a place to store all secrets / variables for real infrastructure managing workspaces like `production` / `staging` to reference.
 - Go to the HCP Terraform UI, and enter the relevant API tokens / secrets / variables into the global variable set that was created
 
 
 ### Live in Production
 
-- Go run the `production` workspace to provision production resources!
+- Go run the `production` workspace
+- Make temporary changes to bootstrap the web service.
+    - Primarily, you need to launch the service with a manually configured image before letting it reference itself. See the comment in one of the terraform files.
+    - In the future, all deploys will happen via a webhook from a github action
+- Apply the changes! The infrastructure should be spun up.

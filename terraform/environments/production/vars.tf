@@ -13,3 +13,9 @@ variable "ghcr_username" {
   type        = string
   sensitive   = true
 }
+
+variable "backend_neon_connection_str_prod" {
+  description = "Connection string to production neon.com postgres database"
+  type = string
+  sensitive = true
+}
