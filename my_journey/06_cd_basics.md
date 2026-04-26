@@ -70,6 +70,7 @@ In summary:
 - In each HCP Terraform workspace, in the UI, set the Settings > General > Terraform Working Directory to the environment path in this repo (terraform/environments/global).
     - This will allow remote runs to use modules declared in the repo at `terraform/modules`.
 - Go run the `global` workspace in terraform. All that workspace does it create a place to store all secrets / variables for real infrastructure managing workspaces like `production` / `staging` to reference.
+- For django, create a secret key by running `python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'` and pasting that output into the production variable group.
 - Go to the HCP Terraform UI, and enter the relevant API tokens / secrets / variables into the global variable set that was created
 
 

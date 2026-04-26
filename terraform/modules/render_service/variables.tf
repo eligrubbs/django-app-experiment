@@ -45,3 +45,12 @@ variable "postgres_config" {
   })
   sensitive = true
 }
+
+variable "django_config" {
+    description = "Django specific variables to set."
+    type = object({
+      secret_key = string # 'djfoasdjfklalfjdsaf' for example
+      settings_module = string # 'hairbrush.settings' for example
+    })
+    sensitive = true
+}

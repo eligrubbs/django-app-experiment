@@ -7,6 +7,11 @@
 #
 ####
 
+# Only use these settings if the environment variable is properly set
+if [ "$ENV" = "production" ]; then
+    export DJANGO_SETTINGS_MODULE=hairbrush.settings_production
+fi
+
 # collect static
 python manage.py collectstatic --noinput
 

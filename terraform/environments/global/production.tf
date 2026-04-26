@@ -12,17 +12,25 @@ resource "tfe_variable_set" "production" {
 }
 
 resource "tfe_workspace_variable_set" "production" {
-    variable_set_id = tfe_variable_set.production.id
-    workspace_id = data.tfe_workspace.production.id
+  variable_set_id = tfe_variable_set.production.id
+  workspace_id = data.tfe_workspace.production.id
 }
 #####
 # Variables
 #####
 
+resource "tfe_variable" "django_secret_key" {
+  key = "django_secret_key"
+  category = "terraform"
+  description = "Secret key for the django web app."
+  sensitive = true
+  variable_set_id = tfe_variable_set.production.id
+}
+
 resource "tfe_variable" "backend_neon_connection_str_prod" {
-    key = "backend_neon_connection_str_prod"
-    category = "terraform"
-    description = "Connection String for Neon Production Database"
-    sensitive = true
-    variable_set_id = tfe_variable_set.production.id
+  key = "backend_neon_connection_str_prod"
+  category = "terraform"
+  description = "Connection String for Neon Production Database"
+  sensitive = true
+  variable_set_id = tfe_variable_set.production.id
 }

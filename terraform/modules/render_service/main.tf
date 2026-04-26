@@ -22,12 +22,14 @@ resource "render_web_service" "webapp" {
     custom_domains = var.api_service_config.custom_domains
 
     env_vars = {
-        FOR_DJANGO_ENV                 = { value = "production" }
-        FOR_DJANGO_POSTGRES_DB         = { value = var.api_service_config.postgres_database }
-        FOR_DJANGO_POSTGRES_HOST       = { value = var.postgres_config.host }
-        FOR_DJANGO_POSTGRES_PORT       = { value = var.postgres_config.port }
-        FOR_DJANGO_POSTGRES_USER       = { value = var.postgres_config.user }
-        FOR_DJANGO_POSTGRES_PASSWORD   = { value = var.postgres_config.password }
-        FOR_DJANGO_DATABASE_URL        = { value = var.postgres_config.connection_str }
+      ENV                            = { value = local.environment }
+      SECRET_KEY                     = { value = var.django_config.secret_key }
+      DJANGO_SETTINGS_MODULE         = { value = var.django_config.settings_module }
+      FOR_DJANGO_POSTGRES_DB         = { value = var.api_service_config.postgres_database }
+      FOR_DJANGO_POSTGRES_HOST       = { value = var.postgres_config.host }
+      FOR_DJANGO_POSTGRES_PORT       = { value = var.postgres_config.port }
+      FOR_DJANGO_POSTGRES_USER       = { value = var.postgres_config.user }
+      FOR_DJANGO_POSTGRES_PASSWORD   = { value = var.postgres_config.password }
+      FOR_DJANGO_DATABASE_URL        = { value = var.postgres_config.connection_str }
     }
 }

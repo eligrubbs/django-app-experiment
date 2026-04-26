@@ -93,6 +93,11 @@ module "production" {
     connection_str = var.backend_neon_connection_str_prod
   }
 
+  django_config = {
+    secret_key = var.django_secret_key
+    settings_module = "hairbrush.settings_production"
+  }
+
   depends_on = [render_registry_credential.ghcr, render_project.hairbrush]
 
 }

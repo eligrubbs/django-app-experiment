@@ -19,3 +19,9 @@ variable "backend_neon_connection_str_prod" {
   type = string
   sensitive = true
 }
+
+variable "django_secret_key" {
+  description = "Secret key for django web service."
+  type = string
+  sensitive = true
+}
