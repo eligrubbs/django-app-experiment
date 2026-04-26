@@ -36,3 +36,41 @@ resource "tfe_variable" "cloudflare_api_token" {
   sensitive       = true
   variable_set_id = tfe_variable_set.global.id
 }
+
+##################
+# Terraform Variables for all remote workspaces to use when
+# performing plan applies and runs.
+# Note: HCP Terraform will throw a warning for unused variables
+##################
+
+resource "tfe_variable" "ghcr_auth_token" {
+  key             = "ghcr_auth_token"
+  category        = "terraform"
+  description     = "GitHub Container Registry auth token"
+  sensitive       = true
+  variable_set_id = tfe_variable_set.global.id
+}
+
+resource "tfe_variable" "ghcr_username" {
+  key             = "ghcr_username"
+  category        = "terraform"
+  description     = "GitHub username for GHCR authentication"
+  sensitive       = true
+  variable_set_id = tfe_variable_set.global.id
+}
+
+####
+# Redundantly repeated so terraform shuts the hell up
+####
+
+variable "ghcr_auth_token" {
+  description = "GitHub Container Registry auth token (Personal Access Token with read:packages scope)"
+  type        = string
+  sensitive   = true
+}
+
+variable "ghcr_username" {
+  description = "GitHub username for GHCR authentication"
+  type        = string
+  sensitive   = true
+}

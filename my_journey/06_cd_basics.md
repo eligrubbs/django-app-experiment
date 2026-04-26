@@ -55,7 +55,22 @@ Neon does not support an official terraform provider. Because of that we will no
 - Make sure your custom domain has cloudflare as it's nameservers
 - Create an API key that only allows DNS edits
 
+### Github Image Access
+
+Follow directions [here](https://render.com/docs/deploying-an-image#github)
+
+In summary:
+
+- Create a personal access token (classic) that has `read:packages` permission
+- Copy that and the username for later
+
 ### HCP Terraform Continued
 
+- Go to each workspace and run `terraform init`. That creates the empty workspaces. The `global` workspace might look for the other environments, so do this first!
 - Go run the `global` workspace in terraform. All that workspace does it create a place to store all secrets / variables for real infrastructure managing workspaces like `production` / `staging` to reference.
 - Go to the HCP Terraform UI, and enter the relevant API tokens / secrets / variables into the global variable set that was created
+
+
+### Live in Production
+
+- Go run the `production` workspace to provision production resources!
