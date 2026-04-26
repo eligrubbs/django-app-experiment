@@ -208,3 +208,5 @@ __marimo__/
 
 # Ignore pre-commit binary
 pre-commit
+
+.terraform
