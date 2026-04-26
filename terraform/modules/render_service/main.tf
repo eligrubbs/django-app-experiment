@@ -9,7 +9,7 @@ resource "render_web_service" "webapp" {
     environment_id     = var.render_environment_id
     # health_check_path  = "/status/health_check"
     pre_deploy_command = "./deploy/pre-deploy.sh"
-    start_command = "gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 hairbrush.asgi:application -k uvicorn.workers.UvicornWorker"
+    start_command = "./deploy/start.sh"
 
     runtime_source = {
       image = {

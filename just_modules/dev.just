@@ -12,8 +12,8 @@ tailwind:
     -o {{ justfile_directory() }}/static/css/output.css \
     --watch --optimize
 
-# spin up infrastructure like it is in prod
-@up:
+# Spin up all services except the webapp. So you can run it locally
+@not-app-up:
     # To mimic production, start all services that are NOT the app
     # Then, run a docker compose command on the app container BEFORE the main app spins up
     # This represents running a pre-deploy command like in prod
@@ -24,6 +24,11 @@ tailwind:
 
     # spin up dependent services
     just stack::project=dev stack up-not-app
+
+# spin up infrastructure like it is in prod
+@up:
+    # start supporting services
+    just dev not-app-up
 
     # run pre-deploy command
     just dev predeploy
