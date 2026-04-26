@@ -11,9 +11,12 @@ DEBUG = False
 
 # Django security checklist settings.
 # Docs: https://docs.djangoproject.com/en/stable/howto/deployment/checklist/
+# Guide: https://www.mybluelinux.com/stop-trusting-your-reverse-proxy-secure-django-the-right-way/
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
 # HTTP Strict Transport Security settings
@@ -37,6 +40,8 @@ ALLOWED_HOSTS = ["hairbrush.eligrubbs.com"]
 RENDER_EXTERNAL_HOSTNAME = env("RENDER_EXTERNAL_HOSTNAME", default=None)
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+CSRF_TRUSTED_ORIGINS = [f"https://{x}" for x in ALLOWED_HOSTS]
 
 # Your email config goes here.
 # see https://github.com/anymail/django-anymail for more details / examples

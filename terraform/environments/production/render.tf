@@ -58,10 +58,10 @@ locals {
 # (use an image with a specific sha), then add the data sources with the
 # service IDs from `terraform state show`.
 # =============================================================================
-# locals {
-#   bootstrap_digest = "sha256:7392c0752d8f713faa606a3b62bc5b5c49c7fe56dcb3e543303e83752c297be2" # you
-#   bootstrap_image_url = "ghcr.io/eligrubbs/django-app-experiment@latest" # the `latest` part is ignored
-# }
+locals {
+  bootstrap_digest = "sha256:15e1c20a69d8b1fbfaff58411ad18a5229b7304a1f2ca3589b7fceb4335f26e5" # you
+  bootstrap_image_url = "ghcr.io/eligrubbs/django-app-experiment@latest" # the `latest` part is ignored
+}
 
 locals {
   production_service_ids = {
@@ -69,9 +69,9 @@ locals {
   }
 }
 
-data "render_web_service" "production_api" {
-  id = local.production_service_ids["webapp"]
-}
+# data "render_web_service" "production_api" {
+#   id = local.production_service_ids["webapp"]
+# }
 
 
 module "production" {
@@ -82,10 +82,10 @@ module "production" {
   registry_credential_id = render_registry_credential.ghcr.id
 
   api_service_config = {
-    image_url       = data.render_web_service.production_api.runtime_source.image.image_url
+    image_url       = local.bootstrap_image_url # data.render_web_service.production_api.runtime_source.image.image_url
     # until I implement CD properly, I will do it manually
     # current: "sha256:128132e37af3859e73edebbecaca3e0ecdeebab99700008504757eddbbc35867" #
-    image_digest    = data.render_web_service.production_api.runtime_source.image.digest
+    image_digest    = local.bootstrap_digest # data.render_web_service.production_api.runtime_source.image.digest
     custom_domains = [{name = local.custom_domain}]
     plan            = "starter"
     postgres_database = local.db_name
