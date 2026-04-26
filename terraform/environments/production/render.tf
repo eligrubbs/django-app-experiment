@@ -83,6 +83,8 @@ module "production" {
 
   api_service_config = {
     image_url       = data.render_web_service.production_api.runtime_source.image.image_url
+    # until I implement CD properly, I will do it manually
+    # current: "sha256:96ae96c421f8fd92e2c582450848725b18c1f4933ba3ef51cff0c799104304bb" #
     image_digest    = data.render_web_service.production_api.runtime_source.image.digest
     custom_domains = [{name = local.custom_domain}]
     plan            = "starter"

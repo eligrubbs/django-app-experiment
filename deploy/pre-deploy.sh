@@ -9,6 +9,7 @@
 
 # Only use these settings if the environment variable is properly set
 if [ "$ENV" = "production" ]; then
+    echo "pre-deploy will set production settings."
     export DJANGO_SETTINGS_MODULE=hairbrush.settings_production
 fi
 

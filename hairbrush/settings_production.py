@@ -4,6 +4,7 @@ Docs/Examples: https://docs.djangoproject.com/en/6.0/topics/settings/
 
 """
 
+# flake8: noqa: F405
 from .settings import *  # noqa F401
 
 DEBUG = False
@@ -32,9 +33,10 @@ USE_HTTPS_IN_ABSOLUTE_URLS = True
 # If you don't want to use environment variables to set production hosts you can add them here
 ALLOWED_HOSTS = ["hairbrush.eligrubbs.com"]
 
-# RENDER_EXTERNAL_HOSTNAME = env("RENDER_EXTERNAL_HOSTNAME", default=None)
-# if RENDER_EXTERNAL_HOSTNAME:
-#     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+# Uses default environment variables set by render to allow connection to app.
+RENDER_EXTERNAL_HOSTNAME = env("RENDER_EXTERNAL_HOSTNAME", default=None)
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Your email config goes here.
 # see https://github.com/anymail/django-anymail for more details / examples
