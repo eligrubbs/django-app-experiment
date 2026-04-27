@@ -1,0 +1,53 @@
+name: Deploy Environment
+permissions:
+  contents: read
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: "Environment to deploy to (production or something else...)"
+        required: true
+        type: string
+      docker-digest:
+        description: "Docker image digest to deploy"
+        required: true
+        type: string
+      render-webapp-service-id:
+        description: "Render Webapp service ID"
+        required: true
+        type: string
+      has-migrations:
+        description: "Whether this deployment includes database migrations"
+        required: false
+        type: boolean
+        default: false
+      skip-webapp:
+        description: "Skip webapp deployment if no webapp changes"
+        required: false
+        type: boolean
+        default: false
+    secrets:
+      RENDER_API_KEY:
+        required: true
+
+jobs:
+  deploy-webapp:
+    name: "Webapp: Deploy to ${{ inputs.environment }}"
+    concurrency:
+      group: deploy-webapp-${inputs.environment}
+      cancel-in-progress: false
+    if: always() && inputs.skip-webapp != true
+    runs-on: ubuntu-2404
+    environment: ${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Deploy Webapp to Render
+        run: |
+          ./.github/workflows/deploy_server.sh \
+            ${{ inputs.docker-digest }} \
+            ${{ inputs.has-migrations }} \
+            "${{ inputs.render-webapp-service-id }}"
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
