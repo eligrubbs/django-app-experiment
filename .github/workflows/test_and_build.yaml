@@ -50,7 +50,7 @@ jobs:
     concurrency:
       group: build-deploy
       cancel-in-progress: true
-    needs: changes
+    needs: [changes, tests]
     if: needs.changes.outputs.migrations == 'false' || github.event_name == 'workflow_dispatch' && (github.event_name != 'pull_request')
     timeout-minutes: 10
     permissions:
@@ -90,7 +90,7 @@ jobs:
           platforms: linux/
       - name: Export digest
         run: echo "${{ steps.push.outputs.digest }}" > digest.txt
-      - uses: actiona/upload-artifact@v7
+      - uses: action/upload-artifact@v7
         with:
           name: image-digest
           path: digest.txt
