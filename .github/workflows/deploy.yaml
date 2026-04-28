@@ -114,6 +114,7 @@ jobs:
   image-digest:
     name: "Gather Image Digest"
     runs-on: ubuntu-slim
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     outputs:
       migrations: ${{ steps.digest.outputs.digest }}
     steps:
@@ -128,6 +129,7 @@ jobs:
   changes:
     name: "Detect Changes"
     runs-on: ubuntu-slim
+    needs: [image-digest]
     outputs:
       migrations: ${{ steps.filter.outputs.migrations }}
     steps:
