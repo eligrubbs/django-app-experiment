@@ -87,7 +87,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           context: .
           provenance: false # disable many artifacts for one workflow run to show up in the UI.
-          platforms: linux/
+          platforms: linux/amd64
       - name: Export digest
         run: echo "${{ steps.push.outputs.digest }}" > digest.txt
       - uses: actions/upload-artifact@v7
