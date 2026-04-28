@@ -94,3 +94,4 @@ jobs:
         with:
           name: image-digest
           path: digest.txt
+          archive: false # needed to upload just the file and have download-artifact be able to get it
