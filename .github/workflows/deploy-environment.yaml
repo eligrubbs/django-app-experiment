@@ -33,12 +33,12 @@ on:
 
 jobs:
   deploy-webapp:
+    runs-on: ubuntu-22.04
     name: "Webapp: Deploy to ${{ inputs.environment }}"
     concurrency:
       group: deploy-webapp-${inputs.environment}
       cancel-in-progress: false
     if: always() && inputs.skip-webapp != true
-    runs-on: ubuntu-2404
     environment: ${{ inputs.environment }}
     steps:
       - uses: actions/checkout@v6
