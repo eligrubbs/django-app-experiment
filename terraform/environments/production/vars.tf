@@ -25,3 +25,9 @@ variable "django_secret_key" {
   type = string
   sensitive = true
 }
+
+variable "django_health_check_secret" {
+  description = "secret added after /health/ to prevent abuse in production."
+  type = string
+  sensitive = true
+}

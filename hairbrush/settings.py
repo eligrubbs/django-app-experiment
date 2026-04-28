@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # third party apps
+    "health_check",
     # my apps
     "apps.web",
 ]
@@ -162,6 +164,9 @@ STORAGES = {
         # "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
+
+# Configure a secret key to append to the health route to prevent abuse in production
+HEALTH_CHECK_SECRET = env("FOR_DJANGO_HEALTH_CHECK_SECRET")
 
 
 # light / dark mode daisy ui theme names.

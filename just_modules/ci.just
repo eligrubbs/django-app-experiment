@@ -53,7 +53,8 @@ tailwind_exec := "tailwindcss-v4.2.2"
 
     # run test
     set +e
-    just stack::project=testing stack manage test
+    just stack::project=testing stack exec ./deploy/special_test_entrypoint.sh
+    # just stack::project=testing stack manage test
     status=$?
     set -e
 

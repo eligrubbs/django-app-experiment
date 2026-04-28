@@ -7,7 +7,7 @@ resource "render_web_service" "webapp" {
     plan               = "starter"
     region             = "ohio"
     environment_id     = var.render_environment_id
-    # health_check_path  = "/status/health_check"
+    health_check_path  = "/health/${var.api_service_config.health_check_secret}"
     pre_deploy_command = "./deploy/pre-deploy.sh"
     start_command = "./deploy/start.sh"
 

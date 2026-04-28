@@ -34,6 +34,9 @@ env_file := if project == 'dev' { ".env" } else { ".env.testing" }
     # Assumes in your Dockerfile you have copied `./deploy/pre-deploy.sh` to the matching location below...
     cd {{ justfile_directory() }} && docker compose -p={{project}} --env-file={{env_file}} run --rm web /app/deploy/pre-deploy.sh
 
+# Execute the following on the web docker container
+@exec *args:
+  cd {{ justfile_directory() }} && docker compose -p={{project}} --env-file={{env_file}} run --rm web {{ args }}
 
 # run manage.py against web container
 @manage *args:
