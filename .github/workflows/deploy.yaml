@@ -119,7 +119,7 @@ jobs:
     runs-on: ubuntu-slim
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     outputs:
-      migrations: ${{ steps.digest.outputs.digest }}
+      digest: ${{ steps.digest.outputs.digest }}
     steps:
     - name: Download digest artifact
       uses: actions/download-artifact@v8
