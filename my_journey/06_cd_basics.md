@@ -4,6 +4,13 @@ We have a very basic hello-world application. We are now ready to get it set up 
 
 The benefits of doing this step early is that as the code evolves, you learn where things need to change in the process.
 
+## Preparing app for production
+
+I realized I forgot to do some important things before deployment. The list of changes I made are:
+1. create `deploy/start.sh` to start the app
+2. remove `collectstatic` manage command from `deploy/pre-deploy.sh` since that runs on a separate container prior to the real prod container
+3. Create a production-specific settings file `hairbrush/settings_production.py` and fill it with stuff to recognize the cloudflare proxy and to secure the session
+
 ## Deployment Services
 
 - Compute: Render.com
@@ -81,3 +88,20 @@ In summary:
     - Primarily, you need to launch the service with a manually configured image before letting it reference itself. See the comment in one of the terraform files.
     - In the future, all deploys will happen via a webhook from a github action
 - Apply the changes! The infrastructure should be spun up.
+
+
+## Continous Deployment
+
+We will trigger a github workflow after the container is built that promotes it to production.
+
+You need to add your `RENDER_API_KEY` to the github repository secrets so github workflows can use it.
+
+We add a ci workflow to `test_and_build.yaml` which runs dockerized tests, then builds a docker artifact for the webapp.
+
+We add a deployment github workflow to `deploy.yaml` which automatically deploys the artifact to production after successfully passing the ci workflow.
+
+We use the `deploy_environment.yaml` callable workflow to separate things out, and defer the complicated logic to a script `deploy_server.sh`.
+
+Almost all of this was copied from the [polar.sh repository](https://github.com/polarsource/polar/tree/main/.github/workflows). I just tweaked it so the testing and build/deploy workflows are not separate; Instead the testing + build were combined and they directly trigger a deployment workflow.
+
+We have now configured a workflow to both integrate and deploy code changes.
