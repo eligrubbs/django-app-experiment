@@ -105,6 +105,8 @@ on:
     types: [completed]
   workflow_dispatch:
 
+permissions:
+  actions: read
 
 concurrency:
   group: deploy-${{ github.event.workflow_run.head_branch }}
@@ -121,8 +123,9 @@ jobs:
     - name: Download digest artifact
       uses: actions/download-artifact@v8
       with:
-        name: image-digest
+        name: digest.txt
         run-id: ${{ github.event.workflow_run.id }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Read digest
       id: digest
       run: echo "digest=$(cat digest.txt)" >> $GITHUB_OUTPUT
