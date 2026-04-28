@@ -93,5 +93,4 @@ jobs:
       - uses: actions/upload-artifact@v7
         with:
           name: image-digest
-          path: digest.txt # accessible via digest.txt
-          archive: false # needed to upload just the file and have download-artifact be able to get it
+          path: digest.txt

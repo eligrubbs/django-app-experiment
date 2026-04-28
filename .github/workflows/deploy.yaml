@@ -121,7 +121,7 @@ jobs:
     - name: Download digest artifact
       uses: actions/download-artifact@v8
       with:
-        name: digest.txt
+        name: image-digest
         run-id: ${{ github.event.workflow_run.id }}
     - name: Read digest
       id: digest
