@@ -13,6 +13,10 @@ if [ "$ENV" = "production" ]; then
     export DJANGO_SETTINGS_MODULE=hairbrush.settings_production
 fi
 
-python manage.py collectstatic --noinput
+./deploy/pre-start.sh
 
-python -m gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 hairbrush.asgi:application -k uvicorn.workers.UvicornWorker
+if [ "$ENV" = "production" ]; then
+    python -m gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 hairbrush.asgi:application -k uvicorn.workers.UvicornWorker
+else
+    python manage.py runserver 0.0.0.0:8000
+fi

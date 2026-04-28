@@ -31,6 +31,7 @@ variable "api_service_config" {
     image_digest           = string
     postgres_database      = string
     plan                   = optional(string, "starter")
+    health_check_secret    = string
   })
 }
 

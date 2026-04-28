@@ -87,6 +87,7 @@ module "production" {
     custom_domains = [{name = local.custom_domain}]
     plan            = "starter"
     postgres_database = local.db_name
+    health_check_secret = var.django_health_check_secret
   }
 
   postgres_config = {

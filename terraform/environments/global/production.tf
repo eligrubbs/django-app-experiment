@@ -34,3 +34,11 @@ resource "tfe_variable" "backend_neon_connection_str_prod" {
   sensitive = true
   variable_set_id = tfe_variable_set.production.id
 }
+
+resource "tfe_variable" "django_health_check_secret" {
+  key = "django_health_check_secret"
+  category = "terraform"
+  description = "Secret which is added after /health/ to prevent abuse in production"
+  sensitive = true
+  variable_set_id = tfe_variable_set.production.id
+}

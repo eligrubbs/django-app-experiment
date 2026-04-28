@@ -32,13 +32,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
+    command: ./deploy/start.sh
     ports:
       - "8000:8000"
     user: "${MY_GID:-4323}:${MY_UID:-4323}"
-    post_start:
-      - command: python manage.py help
-        user: "${MY_GID:-4323}:${MY_UID:-4323}"
+    # post_start:
+    #   - command: python manage.py help
+    #     user: "${MY_GID:-4323}:${MY_UID:-4323}"
     env_file: ${ENV_FILENAME}
     develop:
       watch: # For hot-reloading in dev when app directory changes
