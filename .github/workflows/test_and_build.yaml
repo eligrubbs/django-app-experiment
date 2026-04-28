@@ -1,23 +1,21 @@
-name: Build and Deploy
+name: Run Tests & Maybe Build
+# This workflow runs the tests on the app outside of it's docker container
+# This is for operational efficiency. proper end-to-end tests should be handled elsewhere
 
 on:
   push:
     branches: ["main"]
-    paths:
-      - "!my_journey/**"
-      - "apps/**"
-      - "deploy/**"
-      - "hairbrush/**"
-      - "static/**"
-      - "templates/**"
-      - ".github/workflows/build.yaml"
-      - ".github/workflows/deploy-environment.yaml"
-      - ".github/workflows/deploy_server.sh"
-      - "pyproject.toml"
-      - "manage.py"
-      - ".dockerignore"
-      - "Dockerfile"
-  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize, edited]
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   changes:
@@ -33,16 +31,28 @@ jobs:
           filters: |
             migrations:
               - 'apps/**/migrations/*'
+  # TODO: Include a step that prevents migration code from being in the same commit as non-migration code.
+  tests:
+    name: "Integration Tests w/ Docker"
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: extractions/setup-just@v4
+        with:
+          just-version: '1.50.0'
+      - name: Run CI Tests
+        run: |
+          just ci test
 
   build:
     name: Build Docker Image
+    runs-on: ubuntu-22.04
     concurrency:
       group: build-deploy
       cancel-in-progress: true
     needs: changes
-    if: needs.changes.outputs.migrations == 'false' || github.event_name == 'workflow_dispatch'
+    if: needs.changes.outputs.migrations == 'false' || github.event_name == 'workflow_dispatch' && (github.event_name != 'pull_request')
     timeout-minutes: 10
-    runs-on: ubuntu-22.04
     permissions:
       contents: read
       packages: write
@@ -76,22 +86,11 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           context: .
-          build-args: |
-            MY_UID: 4323
-            MY_GID: 4323
           provenance: false # disable many artifacts for one workflow run to show up in the UI.
-          platforms: linux/amd64
-
-  deploy-production:
-    name: "Deploy to Production"
-    needs: [changes, build]
-    if: always() && !failure() && !cancelled() && (needs.build.result == 'success' || needs.build.result == 'skipped') # && (github.event_name == 'workflow_dispatch')
-    uses: ./.github/workflows/deploy-environment.yaml
-    with:
-      environment: production
-      docker-digest: ${{ needs.build.outputs.digest }}
-      render-webapp-service-id: "srv-d7n97o0g4nts73b1rg00"
-      has-migrations: ${{ needs.changes.outputs.migrations == 'true' || github.event_name == 'workflow_dispatch' }}
-      skip-webapp: ${{ github.event_name == 'fake_name_so_this_is_never_true' }}
-    secrets:
-      RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          platforms: linux/
+      - name: Export digest
+        run: echo "${{ steps.push.outputs.digest }}" > digest.txt
+      - uses: actiona/upload-artifact@v7
+        with:
+          name: image-digest
+          path: digest.txt
