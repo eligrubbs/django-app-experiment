@@ -51,7 +51,7 @@ jobs:
       group: build-deploy
       cancel-in-progress: true
     needs: [changes, tests]
-    if: needs.changes.outputs.migrations == 'false' || github.event_name == 'workflow_dispatch' && (github.event_name != 'pull_request')
+    if: (needs.changes.outputs.migrations == 'false' || github.event_name == 'workflow_dispatch') && (github.event_name != 'pull_request')
     timeout-minutes: 10
     permissions:
       contents: read
