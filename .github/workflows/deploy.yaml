@@ -103,6 +103,7 @@ on:
   workflow_run:
     workflows: ["Run Tests & Maybe Build"]
     types: [completed]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
