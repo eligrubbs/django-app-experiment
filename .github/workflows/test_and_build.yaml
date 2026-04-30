@@ -5,8 +5,12 @@ name: Run Tests & Maybe Build
 on:
   push:
     branches: ["main"]
+    paths-ignore:
+      - "my_journey/**"
   pull_request:
     types: [opened, synchronize, edited]
+    paths-ignore:
+      - "my_journey/**"
   merge_group:
 
 concurrency:
