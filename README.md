@@ -1,5 +1,10 @@
 # django-app-experiment
 
+Check out the website live at [hairbrush.eligrubbs.com](https://hairbrush.eligrubbs.com)
+
+No gurantees will be made as to the integrity of your data. I frequently destroy production since this is my sandbox for learning.
+
+
 ## Important stuff
 
 So that is project mimics a real one, instead of strewing `my_app` everywhere, I am going to pretend I am building some app called "hairbrush". That is a pretty random name; it is very unlikely to get confused with any external package, convention, application, or anything other than the app I am building.

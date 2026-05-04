@@ -7,10 +7,12 @@ on:
     branches: ["main"]
     paths-ignore:
       - "my_journey/**"
+      - "README.md"
   pull_request:
     types: [opened, synchronize, edited]
     paths-ignore:
       - "my_journey/**"
+      - "README.md"
   merge_group:
 
 concurrency:
