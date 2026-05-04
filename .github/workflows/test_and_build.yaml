@@ -55,7 +55,7 @@ jobs:
       group: build-deploy
       cancel-in-progress: true
     needs: [changes, tests]
-    if: (github.event_name == 'workflow_dispatch') && (github.event_name != 'pull_request') # needs.changes.outputs.migrations == 'false' || # until I learn more about django flow, always do this.
+    if: (github.event_name != 'pull_request') # needs.changes.outputs.migrations == 'false' || # until I learn more about django flow, always do this.
     timeout-minutes: 10
     permissions:
       contents: read
