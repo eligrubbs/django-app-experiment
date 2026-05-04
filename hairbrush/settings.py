@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "health_check",
     # my apps
     "apps.web",
+    "apps.users",
 ]
 
 MIDDLEWARE = [
@@ -109,6 +110,9 @@ else:
             "PORT": env("FOR_DJANGO_DATABASE_PORT"),
         }
     }
+
+# Django Auth and Login
+AUTH_USER_MODEL = "users.CustomUser"
 
 
 # Password validation
