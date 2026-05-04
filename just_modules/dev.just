@@ -25,13 +25,13 @@ tailwind:
     # spin up dependent services
     just stack::project=dev stack up-not-app
 
+    # run pre-deploy command
+    just dev predeploy
+
 # spin up infrastructure like it is in prod
 @up:
     # start supporting services
     just dev not-app-up
-
-    # run pre-deploy command
-    just dev predeploy
 
     # deploy with live reload
     just stack::project=dev stack watch-app
@@ -54,3 +54,27 @@ tailwind:
 # remove docker compose volumes holding dev data you've accumulated
 @down-volumes:
     just stack::project=dev stack down-volumes
+
+# Populate dev env with some accounts, data, etc.
+@data-up:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    # Create an admin user
+    just dev manage createsuperuser
+
+
+# For manage cmds that need to run on your machine (makemigrations, etc.)
+@local-manage *args:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    cd '{{ justfile_directory() }}'
+
+    # Use your .env file you made for your own dev environment
+    export $(grep -v '^#' .env | xargs)
+
+    # Make sure some variables are fixed to work from your machine's perspective, not inside the docker container
+    export FOR_DJANGO_DATABASE_HOST="127.0.0.1"
+
+    python manage.py {{ args }}
