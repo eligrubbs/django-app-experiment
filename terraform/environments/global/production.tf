@@ -47,6 +47,7 @@ resource "tfe_variable" "django_email_backend" {
   key = "django_email_backend"
   category = "terraform"
   description = "python module for django to use as email backend. Like django.core.mail.backends.console.EmailBackend for a dev env."
+  value = "django.core.mail.backends.console.EmailBackend" # TODO update to real value later
   sensitive = false
   variable_set_id = tfe_variable_set.production.id
 }
