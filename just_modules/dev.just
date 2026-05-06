@@ -78,3 +78,7 @@ tailwind:
     export FOR_DJANGO_DATABASE_HOST="127.0.0.1"
 
     python manage.py {{ args }}
+
+# Create admin account in local postgres db. fake@admin.com password `fake`
+@make-admin:
+    DJANGO_SUPERUSER_PASSWORD=fake just dev local-manage createsuperuser --username admin --email fake@admin.com --no-input

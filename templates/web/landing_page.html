@@ -6,7 +6,16 @@
 
   {% include 'web/components/top_nav.html' %}
 
-  <p>Hello World</p>
+  <div class="mx-auto w-full max-w-screen-xl px-4">
+
+    <p>Hello World</p>
+
+    {% if user.is_authenticated %}
+      <p>You are logged in as user {{ user.email }}</p>
+    {% else %}
+      <p>You are not logged in.</p>
+    {% endif %}
+  </div>
 
 </div>
 {% endblock body %}

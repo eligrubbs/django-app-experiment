@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # third party apps
     "health_check",
+    "allauth",
+    "allauth.account",
     # my apps
     "apps.web",
     "apps.users",
@@ -58,6 +60,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "hairbrush.urls"
@@ -112,8 +115,10 @@ else:
     }
 
 # Django Auth and Login
+# https://docs.djangoproject.com/en/6.0/ref/settings/#auth
 AUTH_USER_MODEL = "users.CustomUser"
-
+LOGIN_URL = "account_login"
+LOGIN_REDIRECT_URL = "/"
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -132,6 +137,33 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+# Allauth settings
+ACCOUNT_ADAPTER = "apps.users.adapter.EmailAsUsernameAdapter"
+ACCOUNT_SIGNUP_FIELDS = {"email*"}
+ACCOUNT_LOGIN_METHODS = {"email"}
+
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Hairbrush App] "
+ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS = False  # don't send "forgot password" emails to unknown accounts
+ACCOUNT_UNIQUE_EMAIL = True
+
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_LOGIN_BY_CODE_ENABLED = True
+ACCOUNT_LOGIN_BY_CODE_SUPPORTS_RESEND = True
+ALLAUTH_USER_CODE_FORMAT = {"numeric": True, "dashed": False, "length": 6}
+
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+# Email Settings
+
+# default should be django.core.mail.backends.console.EmailBackend, but I don't want silent failures so you have to explicitly set this!
+EMAIL_BACKEND = env("FOR_DJANGO_EMAIL_BACKEND")
 
 
 # Internationalization
