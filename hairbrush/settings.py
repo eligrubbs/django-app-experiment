@@ -147,6 +147,10 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Hairbrush App] "
 ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS = False  # don't send "forgot password" emails to unknown accounts
 ACCOUNT_UNIQUE_EMAIL = True
 
+# You can use an environment variable, but production will overwrite this with "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = env("FOR_DJANGO_ACCOUNT_EMAIL_VERIFICATION", default="optional")
+ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True  # Send OTP instead of using magic link for verifying email
+
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_LOGIN_BY_CODE_ENABLED = True
 ACCOUNT_LOGIN_BY_CODE_SUPPORTS_RESEND = True
