@@ -29,3 +29,24 @@ Create a custom user model that uses the audit mix-in, and the contrib.auth.mode
 ### Register user in admin
 
 Not sure what to do to customize the admin page yet, so for now just register the user.
+
+### Use `django-allauth` to handle logins
+
+This is a batteries included package. I am choosing it to implement a password-less, otp/magic-link email-backed login flow with 3rd party OAUTH integrations for services like github or google.
+
+To do that, add the package with the `socialaccount` add-on.
+
+Helpful Documentation:  
+
+- https://docs.allauth.org/en/latest/account/advanced.html#custom-user-models
+    - For integrating with my custom user model
+- https://docs.allauth.org/en/latest/account/adapter.html
+    - For storing the email as the username
+
+I configured allauth to use only email OTP / magic link options. I don't want to manage passwords.
+
+### Using the admin site
+
+Now that we have the ability to make users, we need to build the admin page.
+
+See the admin documentation: https://docs.djangoproject.com/en/6.0/ref/contrib/admin/
