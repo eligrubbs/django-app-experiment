@@ -31,3 +31,9 @@ variable "django_health_check_secret" {
   type = string
   sensitive = true
 }
+
+variable "django_email_backend" {
+  description = "python module for django to use as email backend. Like django.core.mail.backends.console.EmailBackend for a dev env."
+  type = string
+  sensitive = false
+}

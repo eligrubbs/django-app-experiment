@@ -97,6 +97,7 @@ module "production" {
   django_config = {
     secret_key = var.django_secret_key
     settings_module = "hairbrush.settings_production"
+    email_backend = var.django_email_backend
   }
 
   depends_on = [render_registry_credential.ghcr, render_project.hairbrush]

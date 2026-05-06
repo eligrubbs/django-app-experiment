@@ -32,5 +32,6 @@ resource "render_web_service" "webapp" {
       FOR_DJANGO_POSTGRES_PASSWORD   = { value = var.postgres_config.password }
       FOR_DJANGO_DATABASE_URL        = { value = var.postgres_config.connection_str }
       FOR_DJANGO_HEALTH_CHECK_SECRET = { value = var.api_service_config.health_check_secret }
+      FOR_DJANGO_EMAIL_BACKEND       = { value = var.django_config.email_backend }
     }
 }

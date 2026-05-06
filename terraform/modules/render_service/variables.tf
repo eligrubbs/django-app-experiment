@@ -52,6 +52,7 @@ variable "django_config" {
     type = object({
       secret_key = string # 'djfoasdjfklalfjdsaf' for example
       settings_module = string # 'hairbrush.settings' for example
+      email_backend = string # 'django.core.mail.backends.console.EmailBackend' for example in a dev env
     })
     sensitive = true
 }
