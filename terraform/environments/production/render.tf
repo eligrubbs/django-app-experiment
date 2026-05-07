@@ -103,14 +103,3 @@ module "production" {
   depends_on = [render_registry_credential.ghcr, render_project.hairbrush]
 
 }
-
-
-resource "cloudflare_dns_record" "api" {
-  zone_id = "32d60f1e6a8c694e53a615c0178ea3da"
-  name    = local.custom_domain
-  type    = "CNAME"
-  content = replace(module.production.webapp_service_url, "https://", "")
-  proxied = true # I believe this is free
-  ttl     = 1
-  comment = "record mapping this domain to a render.com web service"
-}
