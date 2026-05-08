@@ -13,3 +13,5 @@ This file will store the many blogs, videos, and resources I find that I feel ha
     - create a separate apps directory
 - [Django Health Check](https://medium.com/@iman.rameshni/django-health-check-89fb6ad39b0c)
     - Simple guide getting your feet wet into using django-healthcheck
+- [Django Unfold](https://github.com/unfoldadmin/django-unfold/tree/main)
+    - Nice UI for docs, just a big django project to steal from

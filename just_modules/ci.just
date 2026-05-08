@@ -46,7 +46,7 @@ tailwind_exec := "tailwindcss-v4.2.2"
     just stack prune
 
     # spin up dependent services
-    just stack::project=testing stack up-not-app
+    just stack::project=testing stack not-app-up
 
     # run pre-deploy command
     just stack::project=testing stack predeploy

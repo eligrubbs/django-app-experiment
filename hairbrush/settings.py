@@ -147,8 +147,8 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Hairbrush App] "
 ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS = False  # don't send "forgot password" emails to unknown accounts
 ACCOUNT_UNIQUE_EMAIL = True
 
-# You can use an environment variable, but production will overwrite this with "mandatory"
-ACCOUNT_EMAIL_VERIFICATION = env("FOR_DJANGO_ACCOUNT_EMAIL_VERIFICATION", default="optional")
+# Always mandatory because we only want email auth flow
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True  # Send OTP instead of using magic link for verifying email
 
 ACCOUNT_SESSION_REMEMBER = True
@@ -165,9 +165,21 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Email Settings
+SERVER_EMAIL = env("FOR_DJANGO_SERVER_EMAIL", default="noreply@hairbrush.eligrubbs.com")
+DEFAULT_FROM_EMAIL = env("FOR_DJANGO_DEFAULT_FROM_EMAIL", default="noreply@hairbrush.eligrubbs.com")
 
 # default should be django.core.mail.backends.console.EmailBackend, but I don't want silent failures so you have to explicitly set this!
 EMAIL_BACKEND = env("FOR_DJANGO_EMAIL_BACKEND")
+
+# Specifically for DEV. In production we use anymail which will ignore these options
+EMAIL_HOST = env("FOR_DJANGO_EMAIL_HOST", default="127.0.0.1")
+EMAIL_PORT = 1025  # always set to this
+
+# Mailpit doesn't require authentication by default
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False
 
 
 # Internationalization

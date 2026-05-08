@@ -15,7 +15,7 @@ env_file := if project == 'dev' { ".env" } else { ".env.testing" }
     echo '{{project}} {{env_file}}'
 
 # spin up all infrastructure that is not the webapp
-@up-not-app:
+@not-app-up:
     cd {{ justfile_directory() }} && docker compose -p={{project}} --env-file={{env_file}} --profile=not-app up -d
 
 

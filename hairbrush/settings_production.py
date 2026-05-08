@@ -43,17 +43,18 @@ if RENDER_EXTERNAL_HOSTNAME:
 
 CSRF_TRUSTED_ORIGINS = [f"https://{x}" for x in ALLOWED_HOSTS]
 
-# Your email config goes here.
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"  # prevent logins without verifying the email address first
+###
+# Email
+###
 
 # see https://github.com/anymail/django-anymail for more details / examples
 # To use mailgun, uncomment the lines below and make sure your key and domain
 # are available in the environment.
-# EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 
-# ANYMAIL = {
-#     "MAILGUN_API_KEY": env("MAILGUN_API_KEY", default=None),
-#     "MAILGUN_SENDER_DOMAIN": env("MAILGUN_SENDER_DOMAIN", default=None),
-# }
+ANYMAIL = {
+    "MAILGUN_API_KEY": env("FOR_DJANGO_MAILGUN_API_KEY", default=None),
+    "MAILGUN_SENDER_DOMAIN": env("FOR_DJANGO_MAILGUN_SENDER_DOMAIN", default=None),
+}
 
 # ADMINS = ["accounts@eligrubbs.com"]

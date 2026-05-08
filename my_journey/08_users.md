@@ -1,4 +1,4 @@
-# Adding User Functionality
+# Adding User Functionality + Email
 
 Right now the site is just a single page. All websites have some sort of user capability. We are going to use several django packages to create a seamless user process.
 
@@ -50,3 +50,33 @@ I configured allauth to use only email OTP / magic link options. I don't want to
 Now that we have the ability to make users, we need to build the admin page.
 
 See the admin documentation: https://docs.djangoproject.com/en/6.0/ref/contrib/admin/
+
+
+## Emails - via Mailgun
+
+At this point, in production you can check the console of the web server and log yourself in. But users should actually be able to receive emails!
+
+To accomplish this, we will use Mailgun as our email service provider.
+
+When creating an account, chosing to not provide payment information will enroll you in the basic plan. That is good enough, 100 emails a day is plenty for this tiny use case.
+
+Onboarding steps:
+
+1. Create account. Enter info. DONT add payment method so you stay on free tier. It requires a phone number as well.
+2. Follow onboarding steps
+    - verify email
+    - create account API key (save for personal use)
+    - add custom domain
+    - modify the terraform in the production environment to configure mailgun as the email service
+3. For each domain, create a sending key. This is what you plug into django.
+
+
+Email Methodology:
+1. Development Environment = Mailpit Backend
+    - This keeps email sending local
+2. Testing Environment = Mailpit Backend
+    - Keeps email local, fast to run, easy to pull sent emails via the mailpit API.
+3. Production = Mailgun Prod
+    - Self explanatory. Set the right API keys as variables of course
+    - We should have confidence that just swapping django configuration should work.
+    - Maybe advanced use cases would have some test configured to verify email service connectivity, but we ride with manual setup then leaving it be once we think it works.

@@ -23,7 +23,7 @@ tailwind:
     just stack prune
 
     # spin up dependent services
-    just stack::project=dev stack up-not-app
+    just stack::project=dev stack not-app-up
 
     # run pre-deploy command
     just dev predeploy
