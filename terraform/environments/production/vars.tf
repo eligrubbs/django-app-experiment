@@ -37,3 +37,9 @@ variable "django_email_backend" {
   type = string
   sensitive = false
 }
+
+variable "django_email_mailgun_api_key" {
+  description = "API key for Mailgun ESP which Django will use to allow sending emails. Should be configured for the url the django app runs on."
+  type = string
+  sensitive = true
+}

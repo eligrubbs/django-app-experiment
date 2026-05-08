@@ -51,3 +51,11 @@ resource "tfe_variable" "django_email_backend" {
   sensitive = false
   variable_set_id = tfe_variable_set.production.id
 }
+
+resource "tfe_variable" "django_email_mailgun_api_key" {
+  key = "django_email_mailgun_api_key"
+  category = "terraform"
+  description = "API key for Mailgun ESP which Django will use to allow sending emails. Should be configured for the url the django app runs on."
+  sensitive = true
+  variable_set_id = tfe_variable_set.production.id
+}

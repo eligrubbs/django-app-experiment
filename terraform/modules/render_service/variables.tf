@@ -53,6 +53,8 @@ variable "django_config" {
       secret_key = string # 'djfoasdjfklalfjdsaf' for example
       settings_module = string # 'hairbrush.settings' for example
       email_backend = string # 'django.core.mail.backends.console.EmailBackend' for example in a dev env
+      email_mailgun_api_key = string # 'adfafewtwrew' for example
+      email_mailgun_sender_domain = string # hairbrush.eligrubbs.com for example
     })
     sensitive = true
 }

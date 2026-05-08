@@ -98,6 +98,8 @@ module "production" {
     secret_key = var.django_secret_key
     settings_module = "hairbrush.settings_production"
     email_backend = var.django_email_backend
+    email_mailgun_api_key = var.django_email_mailgun_api_key
+    email_mailgun_sender_domain = local.custom_domain
   }
 
   depends_on = [render_registry_credential.ghcr, render_project.hairbrush]
