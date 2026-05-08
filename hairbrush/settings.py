@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "health_check",
     "allauth",
     "allauth.account",
+    "anymail",
     # my apps
     "apps.web",
     "apps.users",
