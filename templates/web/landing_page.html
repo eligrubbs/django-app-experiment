@@ -6,16 +6,35 @@
 
   {% include 'web/components/top_nav.html' %}
 
-  <div class="mx-auto w-full max-w-screen-xl px-4">
+  <div id="contents-wrapper" class="flex flex-col min-h-screen">
+    <div class="mx-auto w-full max-w-screen-xl px-4">
 
-    <p>Hello World</p>
+      <p>Hello World</p>
 
-    {% if user.is_authenticated %}
-      <p>You are logged in as user {{ user.email }}</p>
-    {% else %}
-      <p>You are not logged in.</p>
-    {% endif %}
+      {% if user.is_authenticated %}
+        <p>You are logged in as user {{ user.email }}</p>
+      {% else %}
+        <p>You are not logged in.</p>
+      {% endif %}
+    </div>
+    <div id="heroSection" class="mx-auto w-full max-w-screen-xl pt-16 pb-40 px-4">
+      <h1 class="font-semibold max-w-6xl mb-4 mx-auto leading-snug text-3xl text-center tracking-tight lg:leading-tight lg:text-6xl">
+        The Premier
+        <span class="bg-clip-text text-transparent bg-linear-to-r from-purple-800 to-purple-600">Hairbrush</span>
+        Platform
+      </h1>
+      <p class="text-center mb-12 mx-auto max-w-3xl text-base text-center lg:text-xl">A fake online platform for expressing your appreciation of hairbrushes.</p>
+      <ul id="callToAction" class="flex flex-row gap-6 items-center justify-center">
+        <li>
+          <a class="btn font-medium whitespace-nowrap max-sm:btn-sm max-sm:text-sm lg:text-medium lg:btn-lg" href="{{ account_login }}"> Try it Free </a>
+        </li>
+        <li>
+          <a class="btn font-medium whitespace-nowrap max-sm:btn-sm max-sm:text-sm lg:text-medium lg:btn-lg" href=""> Pricing </a>
+        </li>
+      </ul>
+    </div>
   </div>
+
 
 </div>
 {% endblock body %}

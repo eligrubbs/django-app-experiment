@@ -21,10 +21,24 @@
       </div>
 
       <div class="navbar-end">
-        <ul class="menu">
-          <li>
-            <a class="btn btn-neutral btn-sm font-medium text-sm whitespace-nowrap" href="{% url 'account_login' %}">Try it free</a>
-          </li>
+        {# Logged In User Profile Dropdown #}
+        <ul class="flex flex-row items-center justify-center gap-2 mx-2">
+          {% if user.is_authenticated %}
+            <li>
+              <a class="btn btn-neutral btn-sm font-medium text-sm whitespace-nowrap" href="{% url 'account_email' %}">Profile</a>
+            </li>
+            <li>
+              <form method="post" action="{% url 'account_logout' %}">
+                {% csrf_token %}
+                <button class="btn btn-neutral btn-sm font-medium text-sm whitespace-nowrap" type="submit">Logout</button>
+              </form>
+            </li>
+          {% else %}
+            <li>
+              <a class="btn btn-neutral btn-sm font-medium text-sm whitespace-nowrap" href="{% url 'account_login' %}">Try it free</a>
+            </li>
+          {% endif %}
+        {# No-User Login Button #}
         </ul>
         <div id="hamburgerForSmallScreen" class="min-sm:hidden">
           <details class="dropdown dropdown-end" x-data="{}">
