@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     # my apps
     "apps.web",
     "apps.users",
+    "apps.my_platform",
 ]
 
 MIDDLEWARE = [

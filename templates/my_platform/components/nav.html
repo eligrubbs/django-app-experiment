@@ -9,13 +9,7 @@
       <div class="navbar-center max-sm:hidden">
         <ul class="menu menu-horizontal">
           <li class="mx-2">
-            <a class="btn btn-ghost btn-sm font-medium text-sm">Platform</a>
-          </li>
-          <li class="mx-2">
-            <a class="btn btn-ghost btn-sm font-medium text-sm">Pricing</a>
-          </li>
-          <li class="mx-2">
-            <a class="btn btn-ghost btn-sm font-medium text-sm">Contact Us</a>
+            <a class="btn btn-ghost btn-sm font-medium text-sm">TODO: Items Here</a>
           </li>
         </ul>
       </div>
@@ -23,22 +17,15 @@
       <div class="navbar-end">
         {# Logged In User Profile Dropdown #}
         <ul class="flex flex-row items-center justify-center gap-2 mx-2">
-          {% if user.is_authenticated %}
-            <li>
-              <a class="btn btn-neutral btn-sm font-medium text-sm whitespace-nowrap" href="{% url 'account_email' %}">Profile</a>
-            </li>
-            <li>
-              <form method="post" action="{% url 'account_logout' %}">
-                {% csrf_token %}
-                <button class="btn btn-neutral btn-sm font-medium text-sm whitespace-nowrap" type="submit">Logout</button>
-              </form>
-            </li>
-          {% else %}
-            <li>
-              <a class="btn btn-neutral btn-sm font-medium text-sm whitespace-nowrap" href="{% url 'account_login' %}">Try it free</a>
-            </li>
-          {% endif %}
-        {# No-User Login Button #}
+          <li>
+            <a class="btn btn-neutral btn-sm font-medium text-sm whitespace-nowrap" href="{% url 'users:profile' %}">Profile</a>
+          </li>
+          <li>
+            <form method="post" action="{% url 'account_logout' %}">
+              {% csrf_token %}
+              <button class="btn btn-neutral btn-sm font-medium text-sm whitespace-nowrap" type="submit">Logout</button>
+            </form>
+          </li>
         </ul>
         <div id="hamburgerForSmallScreen" class="min-sm:hidden">
           <details class="dropdown dropdown-end" x-data="{}">
@@ -47,13 +34,7 @@
             </summary>
             <ul class="menu dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
               <li>
-                <a class="btn btn-ghost btn-sm font-medium text-sm">Platform</a>
-              </li>
-              <li>
-                <a class="btn btn-ghost btn-sm font-medium text-sm">Pricing</a>
-              </li>
-              <li>
-                <a class="btn btn-ghost btn-sm font-medium text-sm">Contact Us</a>
+                <a class="btn btn-ghost btn-sm font-medium text-sm">TODO: Items Here</a>
               </li>
             </ul>
           </details>
