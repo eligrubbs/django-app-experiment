@@ -11,3 +11,8 @@ Instead we want to build out the very basics of our platform. The platform will 
     - Should have a navbar
     - should be able to log out
     - should be connected to the allauth pages
+
+
+### Configuring Allauth Templates
+
+See there guide [here](https://docs.allauth.org/en/dev/common/templates.html).
