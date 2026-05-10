@@ -6,8 +6,8 @@
     </svg>
   </summary>
   <ul class="menu dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-    <li><button @click="localStorage.setItem('theme', '{{ web.light_theme|default:'light' }}'); syncDarkMode(); $el.parentElement.parentElement.removeAttribute('open');">Light</button></li>
-    <li><button @click="localStorage.setItem('theme', '{{ web.dark_theme|default:'dark' }}'); syncDarkMode(); $el.parentElement.parentElement.removeAttribute('open');">Dark</button></li>
-    <li><button @click="localStorage.setItem('theme', 'system'); syncDarkMode(); $el.parentElement.parentElement.removeAttribute('open');">System</button></li>
+    <li><button class="btn btn-ghost btn-sm font-medium text-sm" @click="localStorage.setItem('theme', '{{ web.light_theme|default:'light' }}'); syncDarkMode(); $el.parentElement.parentElement.removeAttribute('open');">Light</button></li>
+    <li><button class="btn btn-ghost btn-sm font-medium text-sm" @click="localStorage.setItem('theme', '{{ web.dark_theme|default:'dark' }}'); syncDarkMode(); $el.parentElement.parentElement.removeAttribute('open');">Dark</button></li>
+    <li><button class="btn btn-ghost btn-sm font-medium text-sm" @click="localStorage.setItem('theme', 'system'); syncDarkMode(); $el.parentElement.parentElement.removeAttribute('open');">System</button></li>
   </ul>
 </details>
