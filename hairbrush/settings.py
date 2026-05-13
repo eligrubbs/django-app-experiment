@@ -47,9 +47,11 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "anymail",
+    "djstripe",
     # my apps
     "apps.web",
     "apps.users",
+    "apps.subscriptions",
     "apps.my_platform",
 ]
 
@@ -227,3 +229,30 @@ HEALTH_CHECK_SECRET = env("FOR_DJANGO_HEALTH_CHECK_SECRET")
 # they must be valid themes included in your tailwind.config.js file.
 LIGHT_THEME = "myLight"
 DARK_THEME = "myDark"
+
+
+###
+# Stripe Configuration
+#
+# https://dj-stripe.dev/docs/dev/installation
+###
+STRIPE_LIVE_SECRET_KEY = env("FOR_DJANGO_STRIPE_LIVE_SECRET_KEY", default="sk_live_***")
+STRIPE_TEST_SECRET_KEY = env("FOR_DJANGO_STRIPE_TEST_SECRET_KEY", default="sk_test_***")
+# Change to True in production
+STRIPE_LIVE_MODE = env.bool("FOR_DJANGO_STRIPE_LIVE_MODE", False)
+DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "DEBUG" if DEBUG else "INFO",
+    },
+}
