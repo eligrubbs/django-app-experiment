@@ -33,6 +33,9 @@ tailwind:
     # start supporting services
     just dev not-app-up
 
+    # ensure local db has an admin account
+    just dev make-admin
+
     # deploy with live reload
     just stack::project=dev stack watch-app
 
@@ -61,7 +64,7 @@ tailwind:
     set -euo pipefail
 
     # Create an admin user
-    just dev manage createsuperuser
+    just dev make-admin
 
 
 # For manage cmds that need to run on your machine (makemigrations, etc.)
@@ -81,4 +84,4 @@ tailwind:
 
 # Create admin account in local postgres db. fake@admin.com password `fake`
 @make-admin:
-    DJANGO_SUPERUSER_PASSWORD=fake just dev local-manage createsuperuser --username admin --email fake@admin.com --no-input
+    DJANGO_SUPERUSER_PASSWORD=fake just dev local-manage createsuperuser --username admin --email fake@admin.com --no-input || true
