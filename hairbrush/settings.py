@@ -31,6 +31,17 @@ DEBUG = env.bool("FOR_DJANGO_DEBUG", default=True)
 
 ALLOWED_HOSTS = []
 
+if DEBUG:
+    # This allows other services (stripe webhook) running in docker compose stack to send requests to the container,
+    # and django will accept them. Make sure in the docker compose, the name of the webserver service is synchronized with this.
+    ALLOWED_HOSTS.extend(
+        [
+            "localhost",
+            "127.0.0.1",  # include default
+            env("FOR_DJANGO_DEV_WEBSERVER_DOCKER_COMPOSE_NAME", default="web"),
+        ]
+    )
+
 
 # Application definition
 

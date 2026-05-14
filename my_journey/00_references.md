@@ -18,3 +18,7 @@ This file will store the many blogs, videos, and resources I find that I feel ha
 - Stripe Subscriptions Guides
     - [SaaS Pegasus Stripe Guide 1](https://docs.saaspegasus.com/subscriptions/)
     - [SaaS Pegasus Stripe Guide 2](https://www.saaspegasus.com/guides/django-stripe-integrate/)
+- Stripe CLI for local development talking to real sandbox
+    - [Blog](https://martinbean.dev/blog/2025/08/15/using-the-stripe-cli-with-docker-compose/)
+- Stripe Local dj-stripe Development
+    - [Post](https://github.com/williln/til/blob/main/stripe/using_dj_stripe_webhooks_locally.md)

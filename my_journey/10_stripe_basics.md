@@ -30,8 +30,11 @@ We can create a django admin command in the subscriptions app that takes the api
 This is just a one-time sync. If you went to the Stripe UI and updated a price, created a new product, etc., your local dev env would have no idea until you spin everything up again.
 
 To work around this issue only in development we need the stripe-cli for dj-stripe to talk to via the stripe_listen admin command.
+This is kind of complicated, but we don't actually have to set anything up on the stripe UI to get this working.
 
 In production, we can some command to create a dj-stripe webhook endpoint (which will create one in actual stripe) in our database. Then it will us ethat.
 
 
 TODO: Touch up logic for selecting price information after learning more about django query capabilities.
+TODO: get local webhook set up and working
+TODO: when going to production, get a live webhook flow for pre-deploy which idempotently tries to create a webhook endpoint that points to the website.
