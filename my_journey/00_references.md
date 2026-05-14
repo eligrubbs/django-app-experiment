@@ -15,3 +15,6 @@ This file will store the many blogs, videos, and resources I find that I feel ha
     - Simple guide getting your feet wet into using django-healthcheck
 - [Django Unfold](https://github.com/unfoldadmin/django-unfold/tree/main)
     - Nice UI for docs, just a big django project to steal from
+- Stripe Subscriptions Guides
+    - [SaaS Pegasus Stripe Guide 1](https://docs.saaspegasus.com/subscriptions/)
+    - [SaaS Pegasus Stripe Guide 2](https://www.saaspegasus.com/guides/django-stripe-integrate/)

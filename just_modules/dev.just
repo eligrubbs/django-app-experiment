@@ -28,6 +28,10 @@ tailwind:
     # run pre-deploy command
     just dev predeploy
 
+    # only in dev environment, also sync stripe stuff manually
+    just dev local-manage bootstrap_stripe
+
+
 # spin up infrastructure like it is in prod
 @up:
     # start supporting services

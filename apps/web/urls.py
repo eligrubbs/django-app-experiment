@@ -8,6 +8,7 @@ from . import views
 app_name = "web"
 urlpatterns = [
     path("", views.home, name="home"),
+    path("pricing", views.pricing, name="pricing"),
     path(
         f"health/{settings.HEALTH_CHECK_SECRET}",
         HealthCheckView.as_view(
