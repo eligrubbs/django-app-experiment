@@ -43,3 +43,9 @@ variable "django_email_mailgun_api_key" {
   type = string
   sensitive = true
 }
+
+variable "stripe_secret_key_production" {
+  description = "Stripe Secret Key for production"
+  type        = string
+  sensitive   = true
+}

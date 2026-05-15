@@ -58,3 +58,11 @@ variable "django_config" {
     })
     sensitive = true
 }
+
+variable "stripe_secrets" {
+  description = "Stripe secrets (sensitive)"
+  type = object({
+    secret_key             = string
+  })
+  sensitive = true
+}

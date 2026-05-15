@@ -38,3 +38,7 @@ In production, we can some command to create a dj-stripe webhook endpoint (which
 TODO: Touch up logic for selecting price information after learning more about django query capabilities.
 TODO: get local webhook set up and working
 TODO: when going to production, get a live webhook flow for pre-deploy which idempotently tries to create a webhook endpoint that points to the website.
+
+
+
+TODO: When using stripe for real, make sure you change the render service module to set the prod stripe variable for the django prod parameter, not `FOR_DJANGO_STRIPE_TEST_SECRET_KEY`.
