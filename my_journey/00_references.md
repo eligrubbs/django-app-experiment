@@ -22,3 +22,5 @@ This file will store the many blogs, videos, and resources I find that I feel ha
     - [Blog](https://martinbean.dev/blog/2025/08/15/using-the-stripe-cli-with-docker-compose/)
 - Stripe Local dj-stripe Development
     - [Post](https://github.com/williln/til/blob/main/stripe/using_dj_stripe_webhooks_locally.md)
+- DJStripe Issue which points to management command for stripe_listen
+    - [Github Issue](https://github.com/dj-stripe/dj-stripe/issues/2140)
