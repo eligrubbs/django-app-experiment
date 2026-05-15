@@ -102,6 +102,10 @@ module "production" {
     email_mailgun_sender_domain = local.custom_domain
   }
 
+  stripe_secrets = {
+    secret_key = var.stripe_secret_key_production
+  }
+
   depends_on = [render_registry_credential.ghcr, render_project.hairbrush]
 
 }

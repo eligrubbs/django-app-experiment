@@ -40,6 +40,15 @@ services:
         MP_SMTP_AUTH_ACCEPT_ANY: 1
         MP_SMTP_AUTH_ALLOW_INSECURE: 1
 
+
+  # Only for development environment.
+  # only exists so you can run it detached with a specific command
+  # but it still exists in this network
+  stripe:
+    container_name: stripe
+    image: stripe/stripe-cli
+    profiles: ["dont-use-this-profile"] # no default profile
+
   web:
     container_name: webapp_dev
     # the name of the dev image that gets built and saved in your local docker hub

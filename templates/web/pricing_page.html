@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+<div id="page-wrapper" class="w-full">
+
+  {% include 'web/components/top_nav.html' %}
+
+  <div id="contents-wrapper" class="flex flex-col min-h-screen">
+    <div class="mx-auto w-full max-w-screen-xl px-4">
+
+      <p>Hello World</p>
+
+      {% if user.is_authenticated %}
+        <p>You are logged in as user {{ user.email }}</p>
+      {% else %}
+        <p>You are not logged in.</p>
+      {% endif %}
+    </div>
+    <div id="pricingSection" class="mx-auto w-full max-w-screen-xl pt-16 pb-40 px-4">
+      <section>
+        <div class="plan-interval-selector">
+  {% for plan in plans %}
+    <button class="button">{{ plan.name }}</button>
+  {% endfor %}
+</div>
+<div class="columns plan-selector">
+  {# TODO make this a real pricing page. #}
+{% for product in products %}
+  <div class="column">
+    <div {% if product.metadata.is_default %}class="is-selected"{% endif %}>
+      <span class="icon">
+        <i class="fa {% if product.metadata.is_default %}fa-check{% else %}fa-circle{% endif %}">
+        </i>
+      </span>
+      <p class="plan-name">{{ product.name }}</p>
+      <p class="plan-description">{{ product.description }}</p>
+      <div class="plan-price">
+        <span class="price">{{ product.children.0.stripe_data.unit_amount }}</span>
+      </div>
+      <ul class="features">
+         {% for feature in product.metadata.features %}
+         <li>
+           <span class="icon"><i class="fa fa-check"></i></span>
+           <span class="feature">{{ feature }}</span>
+         </li>
+         {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endfor %}
+</div>
+      </section>
+    </div>
+  </div>
+
+
+</div>
+{% endblock body %}

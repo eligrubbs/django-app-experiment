@@ -1,5 +1,7 @@
 tailwind_exec := "tailwindcss-v4.2.2"
 
+stripe_webhook_container_name := "stripe-webhook"
+
 @defaut:
     just --list dev
 
@@ -28,17 +30,28 @@ tailwind:
     # run pre-deploy command
     just dev predeploy
 
+    # only in dev environment, also sync stripe stuff manually then start the webhook
+    just dev local-manage bootstrap_stripe
+    just dev stripe-listen
+
+
 # spin up infrastructure like it is in prod
 @up:
     # start supporting services
     just dev not-app-up
+
+    # ensure local db has an admin account
+    just dev make-admin
 
     # deploy with live reload
     just stack::project=dev stack watch-app
 
 # destroy docker infrastructure
 @down:
+    # || true lets it fail while still running the next command
+    docker stop {{ stripe_webhook_container_name }} || true
     just stack::project=dev stack down
+
 
 # build the dev docker image
 @build:
@@ -61,7 +74,7 @@ tailwind:
     set -euo pipefail
 
     # Create an admin user
-    just dev manage createsuperuser
+    just dev make-admin
 
 
 # For manage cmds that need to run on your machine (makemigrations, etc.)
@@ -81,4 +94,28 @@ tailwind:
 
 # Create admin account in local postgres db. fake@admin.com password `fake`
 @make-admin:
-    DJANGO_SUPERUSER_PASSWORD=fake just dev local-manage createsuperuser --username admin --email fake@admin.com --no-input
+    DJANGO_SUPERUSER_PASSWORD=fake just dev local-manage createsuperuser --username admin --email fake@admin.com --no-input || true
+
+
+# Connect Stripe to your local app. This takes over your terminal
+@stripe-listen:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    cd '{{ justfile_directory() }}'
+
+    # First, use the stripe test key you have set in your .env file
+    # to create a temporary webhook secret
+    export $(grep -v '^#' .env | xargs)
+
+    temp_webhook_secret=$(
+        docker run --rm -it stripe/stripe-cli listen --api-key=$FOR_DJANGO_STRIPE_TEST_SECRET_KEY --skip-update --print-secret
+    )
+
+    # Then pipe that secret to dj-stripe by running an isolated docker admin command
+    local_webhook_url=$(
+        just dev local-manage dev_stripe_listen $temp_webhook_secret
+    )
+
+    # Finally, configure stripe to run in the background with same profile as the stack
+    docker compose -p=dev --env-file=.env run --rm -d --name={{ stripe_webhook_container_name }} stripe listen --api-key=$FOR_DJANGO_STRIPE_TEST_SECRET_KEY --skip-update --forward-to=$local_webhook_url -H "x-djstripe-webhook-secret:$temp_webhook_secret"

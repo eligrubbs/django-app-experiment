@@ -35,5 +35,6 @@ resource "render_web_service" "webapp" {
       FOR_DJANGO_EMAIL_BACKEND          = { value = var.django_config.email_backend }
       FOR_DJANGO_MAILGUN_API_KEY        = { value = var.django_config.email_mailgun_api_key }
       FOR_DJANGO_MAILGUN_SENDER_DOMAIN  = { value = var.django_config.email_mailgun_sender_domain }
+      FOR_DJANGO_STRIPE_TEST_SECRET_KEY = { value = var.stripe_secrets.secret_key } # TODO: When you use stripe for real
     }
 }
