@@ -22,8 +22,6 @@ def pricing(request):
         import logging
 
         logger = logging.getLogger(__name__)
-        # items = [x for x in get_active_products_with_metadata()]
-        # logger.info(items)
         _set = Product.objects.prefetch_related(Prefetch("prices", queryset=Price.objects.all(), to_attr="the_prices"))
         logger.info(_set)
         logger.info(_set[0].prices)
@@ -43,6 +41,8 @@ def pricing(request):
                 logger.info(childs["stripe_data"]["unit_amount"])
 
             data.append(parent_dict)
+
+        data.sort(key=lambda x: x["children"][0]["stripe_data"]["unit_amount"])
 
         logger.info(data[0]["children"])
         return render(request, "web/pricing_page.html", {"products": data})
