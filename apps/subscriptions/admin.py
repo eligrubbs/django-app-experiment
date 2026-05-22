@@ -1,3 +1,20 @@
-# from django.contrib import admin
+"""
+Custom admin configuration for dj-stripe Customer model.
 
-# Register your models here.
+In dj-stripe 2.10, the default Customer admin is currently broken,
+see https://github.com/dj-stripe/dj-stripe/issues/2189
+"""
+
+from django.contrib import admin
+from djstripe.models import Customer
+
+admin.site.unregister(Customer)
+
+
+@admin.register(Customer)
+class CustomerAdmin(admin.ModelAdmin):
+    """
+    Minimal Customer admin using only database fields.
+    """
+
+    pass

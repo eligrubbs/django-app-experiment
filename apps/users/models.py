@@ -2,8 +2,10 @@ from django.contrib.auth.models import AbstractUser
 
 from apps.utils.models import AuditModel
 
+from apps.subscriptions.models import SubscriptionMixin
 
-class CustomUser(AbstractUser, AuditModel):
+
+class CustomUser(AbstractUser, AuditModel, SubscriptionMixin):
     """
     Modifying the abstract user class.
     """
