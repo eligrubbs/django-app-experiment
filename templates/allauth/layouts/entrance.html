@@ -1,6 +1,5 @@
-{% extends "base.html" %}
+{% extends "allauth/layouts/base.html" %}
 {% load i18n %}
-
 
 {% block body %}
     {% include 'web/components/top_nav.html' %}
@@ -16,11 +15,12 @@
     {% endif %}
 
   <div id="contents-wrapper" class="max-w-screen-xl mx-auto">
-    {% block content %}
-    {% endblock content %}
-
+    <div id="loginCardWrapper" class="flex mx-auto mt-6">
+      <div class="flex w-full flex-col gap-2 items-center justify-center">
+        {% block content %}
+        {% endblock content %}
+      </div>
+    </div>
   </div>
 
 {% endblock body %}
-{% block extra_body %}
-{% endblock extra_body %}

@@ -34,3 +34,5 @@ This file will store the many blogs, videos, and resources I find that I feel ha
 - [Django RAPID Architecture](https://www.django-rapid-architecture.org)
 - [Django views opinionated guide](https://spookylukey.github.io/django-views-the-right-way/)
 - [Blog on Template](https://saashammer.com/blog/rethinking-django-template-part-1/)
+- [Project Management Platform](plane.so)
+    - open source, cheap

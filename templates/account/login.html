@@ -1,0 +1,38 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+{% load allauth account %}
+{% block head_title %}
+    {% trans "Sign In" %}
+{% endblock head_title %}
+{% block content %}
+
+  <p>Sign in to Hairbrush</p>
+  <div id="emailSignInFlow">
+    {% if not SOCIALACCOUNT_ONLY %}
+      <form method="post" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {% element fields form=form unlabeled=True %}
+        {% endelement %}
+
+        <button class="btn" type="submit">Sign In</button>
+      </form>
+    {% endif %}
+  </div>
+  {% if not SOCIALACCOUNT_ONLY and SOCIALACCOUNT_ENABLED %}
+    <div class="divider">or</div>
+  {% endif %}
+  <div id="socialSignInFlow">
+
+    {% if SOCIALACCOUNT_ENABLED %}
+      {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+    {% else %}
+      <p>No Social Accounts Set up!</p>
+    {% endif %}
+  </div>
+  <div id="noAccount">
+    {% if not SOCIALACCOUNT_ONLY %}
+      <p>No Account? <a href="{{ signup_url }}" class="link">Create an account</a></p>
+    {% endif %}
+  </div>
+
+{% endblock content %}
