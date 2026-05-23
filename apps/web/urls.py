@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.urls import path
+from django.urls import path, include
 from health_check.views import HealthCheckView
 
 from . import views
@@ -18,4 +18,5 @@ urlpatterns = [
         ),
         name="health_check",
     ),
+    path("users/", include("apps.web.users.urls")),
 ]

@@ -18,7 +18,7 @@
         {# Logged In User Profile Dropdown #}
         <ul class="flex flex-row items-center justify-center gap-2 mx-2">
           <li>
-            <a class="btn btn-neutral btn-sm font-medium text-sm whitespace-nowrap" href="{% url 'users:profile' %}">Profile</a>
+            <a class="btn btn-neutral btn-sm font-medium text-sm whitespace-nowrap" href="{% url 'web:users:profile' %}">Profile</a>
           </li>
           <li>
             <form method="post" action="{% url 'account_logout' %}">

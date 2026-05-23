@@ -100,7 +100,7 @@ def confirm_subscription(request):
         f"You've signed up for {djstripe_subscription.items.select_related('price__product')[0].price.product.name}.",
     )
 
-    return HttpResponseRedirect(request.build_absolute_uri(reverse("users:profile")))
+    return HttpResponseRedirect(request.build_absolute_uri(reverse("web:users:profile")))
 
 
 @login_required
