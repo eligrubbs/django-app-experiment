@@ -111,4 +111,4 @@ def subscription_details(request):
     else:
         msg = "You do not have a subscription"
 
-    return render(request, "users/subscription_details.html", {"msg": msg})
+    return render(request, "web/users/subscription_details.html", {"msg": msg})

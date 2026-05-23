@@ -19,4 +19,5 @@ urlpatterns = [
         name="health_check",
     ),
     path("users/", include("apps.web.users.urls")),
+    path("platform/", include("apps.web.platform.urls")),
 ]

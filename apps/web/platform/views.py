@@ -7,4 +7,4 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def platform(request):
 
-    return render(request, "my_platform/index.html")
+    return render(request, "web/platform/index.html")
