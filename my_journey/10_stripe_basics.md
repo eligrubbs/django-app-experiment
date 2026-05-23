@@ -39,6 +39,16 @@ TODO: Touch up logic for selecting price information after learning more about d
 TODO: get local webhook set up and working
 TODO: when going to production, get a live webhook flow for pre-deploy which idempotently tries to create a webhook endpoint that points to the website.
 
-
+TODO: Manage Stripe Products & Prices in Terraform
 
 TODO: When using stripe for real, make sure you change the render service module to set the prod stripe variable for the django prod parameter, not `FOR_DJANGO_STRIPE_TEST_SECRET_KEY`.
+
+
+## Enabling Checkout for Users
+
+The next step is to connect `subscriptions` and `customers` dj-stripe models to our users. We could inject this directly onto the User model, but I prefer we separate out the subscription specific logic into a mix-in.
+
+stripe guide: https://docs.stripe.com/billing/subscriptions/build-subscriptions?ui=stripe-hosted&payment-ui=checkout&lang=python#create-session
+Combined with the dj-stripe documentation.
+
+To get things integrated, you need to add the stripe subscription / customer mix-in to your user model and run migrations. Then, use the documentation for stripe checkouts to create a checkout page that initiates a stripe checkout session. On completion of the stripe checkout, configure the success url to run a command to synchronize the customer model instance to the subscription instance, as well as implement a webhook for the checkout.complete event to perform the same action. These two functions should be idempotent, so that if one runs first, they don't ruin things.

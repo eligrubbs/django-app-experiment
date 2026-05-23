@@ -1,0 +1,26 @@
+{% if messages %}
+  <ul id="messageWrapper">
+    {% for msg in messages %}
+      <li class="toast message-notification">
+        <div class="alert alert-info">
+          <p>{{ msg }}</p>
+          <button class="message-delete btn btn-ghost btn-xs">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-[1.2em]">>
+              <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+            </svg>
+          </button>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+  <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.message-notification .message-delete') || []).forEach(($delete) => {
+          let $notification = $delete.parentNode;
+          $delete.addEventListener('click', () => {
+            $notification.parentNode.removeChild($notification);
+          });
+        });
+      });
+  </script>
+{% endif %}

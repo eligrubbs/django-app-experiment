@@ -19,37 +19,24 @@
     </div>
     <div id="pricingSection" class="mx-auto w-full max-w-screen-xl pt-16 pb-40 px-4">
       <section>
-        <div class="plan-interval-selector">
-  {% for plan in plans %}
-    <button class="button">{{ plan.name }}</button>
-  {% endfor %}
-</div>
-<div class="columns plan-selector">
-  {# TODO make this a real pricing page. #}
-{% for product in products %}
-  <div class="column">
-    <div {% if product.metadata.is_default %}class="is-selected"{% endif %}>
-      <span class="icon">
-        <i class="fa {% if product.metadata.is_default %}fa-check{% else %}fa-circle{% endif %}">
-        </i>
-      </span>
-      <p class="plan-name">{{ product.name }}</p>
-      <p class="plan-description">{{ product.description }}</p>
-      <div class="plan-price">
-        <span class="price">{{ product.children.0.stripe_data.unit_amount }}</span>
-      </div>
-      <ul class="features">
-         {% for feature in product.metadata.features %}
-         <li>
-           <span class="icon"><i class="fa fa-check"></i></span>
-           <span class="feature">{{ feature }}</span>
-         </li>
-         {% endfor %}
-      </ul>
-    </div>
-  </div>
-{% endfor %}
-</div>
+        {# TODO make this a real pricing page. #}
+        <ul class="flex flex-cols mx-4">
+            {% for product in products %}
+              <li class="card">
+                <div class="card-body">
+                  <p>{{ product.name }}</p>
+                  <div>
+                    <span>{{ product.children.0.stripe_data.unit_amount }}</span>
+                  </div>
+                  <form action="{% url 'subscriptions:create_checkout_session' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="priceId" value="{{product.children.0.id}}" />
+                    <button class="btn btn-sm font-medium text-sm" type="submit">Select Plan</button>
+                  </form>
+                </div>
+              </li>
+            {% endfor %}
+        </ul>
       </section>
     </div>
   </div>

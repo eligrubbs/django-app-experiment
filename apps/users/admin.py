@@ -6,4 +6,4 @@ from .models import CustomUser
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
-    pass
+    fieldsets = UserAdmin.fieldsets + (("Hairbrush User Fields", {"fields": ("subscription", "customer")}),)
