@@ -20,4 +20,5 @@ urlpatterns = [
     ),
     path("users/", include("apps.web.users.urls")),
     path("platform/", include("apps.web.platform.urls")),
+    path("subscriptions/", include("apps.web.subscriptions.urls")),
 ]

@@ -13,7 +13,7 @@
         {% csrf_token %}
         {% element fields form=form unlabeled=True %}
         {% endelement %}
-
+        {{ redirect_field }}
         <button class="btn" type="submit">Sign In</button>
       </form>
     {% endif %}
