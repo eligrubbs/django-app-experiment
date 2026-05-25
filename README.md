@@ -31,3 +31,5 @@ To that end, not only will I use git, but when I think I have reached a nice mil
 
 
 TODO: migration checks using file patterns cleanly using filter-paths action. See Sentry [example](https://github.com/getsentry/sentry/blob/8e21c10a3eb178b48c8de7c14ae9fb3e5cf41278/.github/file-filters.yml)
+
+TODO: add heroicons https://github.com/adamchainz/heroicons

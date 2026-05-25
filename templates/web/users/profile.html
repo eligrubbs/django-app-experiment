@@ -6,8 +6,14 @@
 
 {% include 'web/platform/_components/nav.html' %}
 
-<p>Welcome to your user profile</p>
+<div>
+<p>Welcome to your user profile: {{ email }}</p>
 
 <a class="btn btn-primary" href="{% url 'web:subscriptions:subscription_details' %}">View Subscription</a>
+</div>
+
+
+
+
 
 {% endblock %}
