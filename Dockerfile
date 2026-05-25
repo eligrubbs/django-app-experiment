@@ -6,13 +6,14 @@ ARG VERSION_OF_UV="0.11.7"
 ARG PYTHON_VERSION="3.14"
 ARG MY_UID="4323"
 ARG MY_GID="4323"
+ARG INSTALL_DEV="0"
 
 # Stage 0: define state using variable as workaround to have parameterized uv arg
 FROM ghcr.io/astral-sh/uv:${VERSION_OF_UV} AS uv_executables
 
 # Stage 1: Builder
 FROM debian:bookworm-slim AS builder
-ARG APP_DIR PYTHON_VERSION VERSION_OF_UV
+ARG APP_DIR PYTHON_VERSION VERSION_OF_UV INSTALL_DEV
 
 COPY --from=uv_executables /uv /uvx /bin/
 
@@ -27,12 +28,11 @@ RUN uv python install ${PYTHON_VERSION}
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --locked --no-install-project --no-editable --no-dev
+    uv sync --locked --no-install-project --no-editable $( [ "$INSTALL_DEV" = "0" ] && echo "--no-dev")
 COPY . ${APP_DIR}/
 # Install actual package in editable mode
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked --no-dev
-
+    uv sync --locked $( [ "$INSTALL_DEV" = "0" ] && echo "--no-dev")
 
 
 # Stage 2: Final lightweight image

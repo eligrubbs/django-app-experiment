@@ -56,6 +56,8 @@ services:
     profiles: ["app", ""]
     build:
       context: .
+      args:
+        - INSTALL_DEV=${INSTALL_DEV}
       dockerfile: Dockerfile
     command: ./deploy/start.sh
     ports:
