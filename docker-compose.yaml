@@ -56,7 +56,7 @@ services:
     profiles: ["app", ""]
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ${MY_DOCKERFILE:-Dockerfile}
     command: ./deploy/start.sh
     ports:
       - "8000:8000"

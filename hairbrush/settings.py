@@ -29,6 +29,8 @@ SECRET_KEY = env("SECRET_KEY", default="django-insecure-05u$&s$l&=q1(hs27ph$_6r1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("FOR_DJANGO_DEBUG", default=True)
 
+ENABLE_DEBUG_TOOLBAR = env.bool("FOR_DJANGO_ENABLE_DEBUG_TOOLBAR", default=False)
+
 ALLOWED_HOSTS = []
 
 if DEBUG:
@@ -112,6 +114,30 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "hairbrush.wsgi.application"
+
+
+# Django Debug Toolbar
+if ENABLE_DEBUG_TOOLBAR:
+    # I don't have middleware that encodes response content, so I am ok to put
+    # this first.
+    # See https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#add-the-middleware
+    MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
+    INSTALLED_APPS.append("debug_toolbar")
+    INTERNAL_IPS = ["127.0.0.1"]
+    try:
+        import socket
+
+        # get hostname for Docker environments
+        # See https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#configure-internal-ips
+        hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+        # add discovered IPs plus some common defaults
+        INTERNAL_IPS += [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["192.168.65.1", "10.0.2.2"]
+    except OSError as e:
+        print(f"{e} while attempting to resolve system hostname. Using INTERNAL_IPS={INTERNAL_IPS}")
+
+if DEBUG:
+    INSTALLED_APPS.append("django_browser_reload")
+    MIDDLEWARE.append("django_browser_reload.middleware.BrowserReloadMiddleware")
 
 
 # Database
