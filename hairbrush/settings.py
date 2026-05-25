@@ -27,7 +27,7 @@ env = environ.Env()
 SECRET_KEY = env("SECRET_KEY", default="django-insecure-05u$&s$l&=q1(hs27ph$_6r1$0)38lkj10bzdd)c7xzyvh_-e$")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("FOR_DJANGO_DEBUG", default=True)
+DEBUG = env.bool("FOR_DJANGO_DEBUG", default=False)
 
 ENABLE_DEBUG_TOOLBAR = env.bool("FOR_DJANGO_ENABLE_DEBUG_TOOLBAR", default=False)
 
