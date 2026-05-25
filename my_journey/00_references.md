@@ -26,7 +26,7 @@ This file will store the many blogs, videos, and resources I find that I feel ha
     - [Github Issue](https://github.com/dj-stripe/dj-stripe/issues/2140)
 - [Stripe Implementation Tips](https://github.com/t3dotgg/stripe-recommendations)
 - [Solo Django SaaS Guide](https://anthonynsimon.com/blog/tech-stack/)
-- [Large Django Architecture Advice](https://wild.codes/candidate-toolkit-question/how-do-you-structure-a-large-scale-django-project-modularly?)
+- [Large Django Architecture Advice](https://wild.codes/candidate-toolkit-question/how-do-you-structure-a-large-scale-django-project-modularly)
 - [Very Popular Django Template](https://github.com/wemake-services/wemake-django-template/tree/master)
 - [A smaller Django Template](https://github.com/rbrenaget/django-velocity)
 - [DabApps Django Encapsulation Blog](https://www.dabapps.com/insights/django-models-and-encapsulation/)
@@ -34,3 +34,5 @@ This file will store the many blogs, videos, and resources I find that I feel ha
 - [Django RAPID Architecture](https://www.django-rapid-architecture.org)
 - [Django views opinionated guide](https://spookylukey.github.io/django-views-the-right-way/)
 - [Blog on Template](https://saashammer.com/blog/rethinking-django-template-part-1/)
+- [Project Management Platform](plane.so)
+    - open source, cheap

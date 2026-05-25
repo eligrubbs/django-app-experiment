@@ -63,7 +63,6 @@ INSTALLED_APPS = [
     "apps.web",
     "apps.users",
     "apps.subscriptions",
-    "apps.my_platform",
 ]
 
 MIDDLEWARE = [
@@ -95,6 +94,9 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             BASE_DIR / "templates",
+            # This is added so I don't have to crowd the tmeplate namespace directly with allauth templates.
+            # Yes there is a risk of ambiguity.For example don't create `templates/allauth/layouts/base.html``
+            BASE_DIR / "templates" / "_compat_allauth",
         ],
         "OPTIONS": {
             "context_processors": [

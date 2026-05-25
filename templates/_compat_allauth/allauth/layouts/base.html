@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+
+{% block body %}
+    {% include 'web/_components/top_nav.html' %}
+
+
+    {% if messages %}
+        <div>
+            <strong>{% trans "Messages:" %}</strong>
+            <ul>
+                {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+  <div id="contents-wrapper" class="max-w-screen-xl mx-auto">
+    {% block content %}
+    {% endblock content %}
+
+  </div>
+
+{% endblock body %}
+{% block extra_body %}
+{% endblock extra_body %}

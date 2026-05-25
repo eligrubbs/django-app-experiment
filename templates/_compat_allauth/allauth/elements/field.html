@@ -1,6 +1,6 @@
 {% load allauth %}
 {{ attrs.errors }}
-<p>
+
     {% if attrs.type == "textarea" %}
         <label for="{{ attrs.id }}">
             {% slot label %}
@@ -45,4 +45,3 @@
             {% endslot %}
         </span>
     {% endif %}
-</p>

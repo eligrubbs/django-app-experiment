@@ -18,14 +18,14 @@
     <script src="{% static 'js/htmx.min.js' %}"></script>
     <script src="{% static 'js/response-targets.min.js' %}"></script>
 
-    {% include 'web/components/favicon.html' %}
+    {% include 'web/_components/favicon.html' %}
 
     {% block page_head %}
     {% endblock %}
 </head>
 <body>
 
-  {% include 'web/components/messages.html' %}
+  {% include 'web/_components/messages.html' %}
 
   {% block body %}
   {% endblock body %}

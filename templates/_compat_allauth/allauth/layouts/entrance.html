@@ -1,0 +1,26 @@
+{% extends "allauth/layouts/base.html" %}
+{% load i18n %}
+
+{% block body %}
+    {% include 'web/_components/top_nav.html' %}
+
+
+    {% if messages %}
+        <div>
+            <strong>{% trans "Messages:" %}</strong>
+            <ul>
+                {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+  <div id="contents-wrapper" class="max-w-screen-xl mx-auto">
+    <div id="loginCardWrapper" class="flex mx-auto mt-6">
+      <div class="flex w-full flex-col gap-2 items-center justify-center">
+        {% block content %}
+        {% endblock content %}
+      </div>
+    </div>
+  </div>
+
+{% endblock body %}

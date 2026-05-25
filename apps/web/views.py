@@ -9,7 +9,7 @@ from djstripe.models import Product, Price
 def home(request):
     # TODO: Do something different
     if request.user.is_authenticated:
-        return redirect("my_platform:home")
+        return redirect("web:platform:home")
 
     send_test_msg = request.GET.get("send_msg")
     import logging

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block body %}
+
+{% include 'web/platform/_components/nav.html' %}
+
+<a class="btn btn-primary" href="{% url 'web:users:profile' %}">User Profile</a>
+
+<p>{{ msg }}</p>
+
+{% endblock %}
