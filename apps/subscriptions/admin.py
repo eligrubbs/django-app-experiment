@@ -6,13 +6,15 @@ see https://github.com/dj-stripe/dj-stripe/issues/2189
 """
 
 from django.contrib import admin
+
 from djstripe.models import Customer
+from unfold.admin import ModelAdmin
 
 admin.site.unregister(Customer)
 
 
 @admin.register(Customer)
-class CustomerAdmin(admin.ModelAdmin):
+class CustomerAdmin(ModelAdmin):
     """
     Minimal Customer admin using only database fields.
     """
