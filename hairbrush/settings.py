@@ -48,6 +48,7 @@ if DEBUG:
 # Application definition
 
 INSTALLED_APPS = [
+    "unfold",  # Django Admin modern UI package
     "whitenoise.runserver_nostatic",  # makes sure that whitenoise handles static files in development
     "django.contrib.admin",
     "django.contrib.auth",
