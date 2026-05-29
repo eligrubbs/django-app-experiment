@@ -30,3 +30,15 @@ STATIC_DIR := justfile_directory() + "/static/js/"
 
     # Alpine JS
     cd {{ STATIC_DIR }}  && curl -sLo alpinejs.min.js https://cdn.jsdelivr.net/npm/alpinejs@3.15.4/dist/cdn.min.js
+
+
+# Installs a pinned version of nvm on your system.
+@install-nvm-on-system:
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+
+
+@install-node:
+    #!/usr/bin/env bash
+    # Load nvm into the current shell
+    [ -s "$HOME/.nvm/nvm.sh" ] && . "$HOME/.nvm/nvm.sh"
+    nvm install 24.16.0
