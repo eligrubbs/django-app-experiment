@@ -210,3 +210,9 @@ __marimo__/
 pre-commit
 
 .terraform
+
+
+node_modules/
+
+# Ignore frontend build artifacts
+frontend/dist/

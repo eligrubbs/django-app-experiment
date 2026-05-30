@@ -1,0 +1,9 @@
+/*** Tailwind CSS Presets ***/
+@import "tailwindcss";
+
+/* Tailwind Source traverses from file path. */
+@source "../../../templates/**/*.html";
+
+
+/* Tailwind `dark` variants are applied when myDark is set as the `data-theme` */
+@custom-variant dark (&:where([data-theme=myDark], [data-theme=myDark] *));

@@ -1,0 +1,17 @@
+{
+  "src/css/app.css": {
+    "file": "css/app.css",
+    "name": "app",
+    "names": [
+      "app.css"
+    ],
+    "src": "src/css/app.css",
+    "isEntry": true
+  },
+  "src/js/index.js": {
+    "file": "js/index.js",
+    "name": "index",
+    "src": "src/js/index.js",
+    "isEntry": true
+  }
+}
