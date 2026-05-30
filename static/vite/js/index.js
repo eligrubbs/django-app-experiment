@@ -1,0 +1,1 @@
+function e(){let e=document.createElement(`div`);return e.innerHTML=`Hello From Vite`,e}document.body.appendChild(e());

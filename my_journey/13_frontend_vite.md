@@ -11,21 +11,12 @@ Guide about docker best practices and how to use django
 
 The basics is this
 1. Create a directory that holds your js, css, frontend specific files
-2. Have the vite target outDir be some other directory
-3. Add that directory from step 2 to STATICFILES_DIRS so collectstatic pulls from it
+2. Specify clearly in your config what files are your entrypoint, and define clear output filenames with NO HASHES
+3. Have vite target outDir to be the SAME directory that django looks in for collectstatic - this is and entry in STATICFILES_DIRS
 
-Also probably store global images, etc. in some other folder like `/public` (hero.jpg, etc.). Not really sure on this pattern yet though.
+With this format, even during development (by help of the vite server and it's quickness), the collectstatic directory will contain final assets that the webserver expects.
 
-There are also small configuration linkings you have to do so django-vite can reference your right files in dev
-
-
-What this raises the problem of asset duplication. Between the raw files, the bundled files in intermediary directory in step 2, to the final collected files from collectstatic, you can have the same css, javascript, etc. duplicated in several places
-
-This is not a large problem if all of your assets and images are not that large. Nowadays probably 50MB of static files for your website is manageable to just bundle right inside of your docker image.
-
-So to use vite, we should add a new stage in the docker build that uses npm to create the files as described in step 2, and then we copy those to the final image before running collectstatic at runtime. We can control this with a build argument that defaults to True (will run unless we turn it off so in prod we don't have to think about it).
-
-In development, we can use a separate image, copy just the relevant vite code over, and then run it as a webserver. The django dev container can connect to it via the docker compose network. This provides hot-module reloading.
+This greatly simplifies things in this monolithic architecture. Vite is responsible for quickly taking your code and turning it into assets for Django, Django reads STATICFILES_DIRS as if vite was not even there. The consequence of this is that you don't need any help from other tools to get hot-reloading for your django app working beyond what is already standard to use in django (django-browser-reload, django-debug-toolbar).
 
 
 ## Setting things up
@@ -35,7 +26,7 @@ In development, we can use a separate image, copy just the relevant vite code ov
     - run `just setup install-nvm-on-system`
 2. run the justfile command in the setup to install the pinned version of node
     - run `just setup install-node`
-3. run `npm init` to create package.json. But we don't need anything except a `scripts` section
+3. run `npm init` to create package.json. You could also create it manually since we don't need anything except a `scripts` section
     - example
     ```
     {
@@ -44,8 +35,8 @@ In development, we can use a separate image, copy just the relevant vite code ov
         }
     }
     ```
-4. Add tailwindcss, and vite toolchain
-    - `npm add -D tailwindcss vite @tailwindcss/vite`
+4. Add tailwindcss, daisyui and vite toolchain
+    - `npm add -D tailwindcss vite @tailwindcss/vite daisyui`
 5. Add vite config file `vite.config.js`
     - See reference [here](https://vite.dev/config/)
 
@@ -60,24 +51,31 @@ To that end, we create an isolated directory in this repo's root called `fronten
 
 - `frontend/src`: Put all the raw files into here
 
-We will set the vite build options to output specific files in the same directory that django has configured in `STATICFILES_DIRS`. With this, when vite changes those files, we instantly get rebuilds.
+We will set the vite build options to output specific files in the same directory that django has configured in `STATICFILES_DIRS`. With this, when vite changes those files, we instantly get rebuilds. Specifically, we will dump everything that vite manages into a `vite` subdirectory. Doing this is important for easily enabling workflows which guarantee that our frontend code and corresponding build assets always align. See the production section for why this is important.
 
-## Integrating with Django
 
-In short:
 
-- The django plugin `django-vite` will be used as switches seemlessly between dev & prod
+### Development
 
-- Dev Env: We will use vite to run as a server. The `django-vite` plugin will link the server with django right on top of your raw files, that way you can change them they hot-reload
-- Prod Env: We will use a docker pre-build stage to compile the files, then in the final stage copy those files to the directory we expect them to live in.
+Run in a separate terminal `just dev vite` to start the vite server which will continually build the assets as you make changes in `frontend/src` as the config file tells it to.
+
+
+### Production
+
+As mentioned above, we want to ensure that in production, our javascript / css code generates the expected outputs we saw in development. That means either setting something up to run `npm vite build` on a production setting, which requires either a docker pre-build stage that uses node, or a runtime that somehow has node and can copy the files over. Or, we can make sure during development, the very quick operation of `npm vite build` is pushed down to your machine!
+
+To do this we have a pre-commit hook that runs `npm vite build`, and then checks to see if any unstaged changes in `/static/vite/` then appear. If so, you need to add those changes in order for your commit to pass. This allows you to add things to `/static/` without the pre-commit hooks raising any issues (as opposed to checking just `/static/` for unstaged changes in the hook).
+
+Small hiccup, running `npm vite build` produces assets which the
 
 
 ## Anatomy of static directory
 
 ```
 static/ # Django STATICFILE_DIRTS path
-    css/ # vite will dump css here
-    js/ # vite will dump js here
     images/ # non-vite managed image files
-    assets/ # non js or css assets that are bundled. Prety much won't be generated ever
+    vite/
+        css/ # vite will dump css here
+        js/ # vite will dump js here
+        assets/ # non js or css assets that are bundled. Prety much won't be generated ever
 ```

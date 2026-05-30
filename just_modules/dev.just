@@ -16,7 +16,7 @@ tailwind:
 
 # run vite dev server
 vite:
-    npm run dev
+    npm run watch
 
 # Spin up all services except the webapp. So you can run it locally
 @not-app-up:

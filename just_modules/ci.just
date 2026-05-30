@@ -19,7 +19,8 @@ tailwind_exec := "tailwindcss-v4.2.2"
 # Have Vite build frontend resources
 @vite-build:
     npm run build
-
+    # Make sure running build did not change any of the files
+    cd {{ justfile_directory() }} && git diff --exit-code static/vite/ > /dev/null
 
 # Run tests which rely on dockerized services
 @test:

@@ -1,2 +1,5 @@
 /* Root Styling */
 @import "@/src/css/tailwind.css";
+
+
+@import "@/src/css/daisyui.css";

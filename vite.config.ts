@@ -5,13 +5,13 @@ import path from 'path';
 
 export default defineConfig({
   root: 'frontend',
-  base: '/static/', // Should match Django's STATIC_URL
+  base: '/static/', // Should match Django's STATIC_URL if you use django_vite
   plugins: [
     tailwindcss(),
   ],
 
   build: {
-    outDir: path.resolve(__dirname, './static'), // Place in same folder as non-vite assets. Matches a Django STATICFILES_DIRS entry
+    outDir: path.resolve(__dirname, './static/vite/'), // Place in same folder as non-vite assets. Matches a Django STATICFILES_DIRS entry
     emptyOutDir: false,
     manifest: true,
 

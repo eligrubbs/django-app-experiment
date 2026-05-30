@@ -1,7 +1,7 @@
-@import "./daisyui.css";
+@plugin "daisyui";
 
 
-@plugin "../js/daisyui-theme.mjs" {
+@plugin "daisyui/theme" {
   name: "myLight";
   default: true;
   prefersdark: false;
@@ -37,7 +37,7 @@
 }
 
 
-@plugin "../js/daisyui-theme.mjs" {
+@plugin "daisyui/theme" {
   name: "myDark";
   default: false;
   prefersdark: true;

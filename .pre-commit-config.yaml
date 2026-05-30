@@ -20,7 +20,6 @@ repos:
       stages: [pre-commit]
       name: "Vite Build"
       # Match any file in frontend/src
-      files: frontend/src/^.*$
       language: unsupported
       entry: just ci vite-build
       pass_filenames: false
@@ -36,6 +35,8 @@ repos:
     -   id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
     -   id: end-of-file-fixer
+        # So bundled files don't have to have end-of-file new-line character
+        exclude: ^static/
     -   id: check-added-large-files
     -   id: check-yaml
     -   id: check-toml

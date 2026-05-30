@@ -1,4 +1,5 @@
 {% load static %}
+{# {% load django_vite %} #}
 <!DOCTYPE html>
 <html lang="en" {% if dark_mode %}class="dark" data-theme="{{ web.dark_theme }}"{% endif %}>
 <head>
@@ -9,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {# Tailwind #}
-    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <link rel="stylesheet" href="{% static 'vite/css/app.css' %}">
 
     {# Alpine.JS #}
     <script defer src="{% static 'js/alpinejs.min.js' %}"></script>
@@ -18,12 +19,21 @@
     <script src="{% static 'js/htmx.min.js' %}"></script>
     <script src="{% static 'js/response-targets.min.js' %}"></script>
 
+    {# App-Specific #}
+    {# {% vite_hmr_client %} #}
+
+    {# {% vite_asset 'src/css/app.css' %} #}
+
+
     {% include 'web/_components/favicon.html' %}
 
     {% block page_head %}
     {% endblock %}
 </head>
 <body>
+
+  {# {% vite_asset 'src/js/index.js' %} #}
+   <script src="{% static 'vite/js/index.js' %}"></script>
 
   {% include 'web/_components/messages.html' %}
 
