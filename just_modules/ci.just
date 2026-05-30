@@ -15,6 +15,12 @@ tailwind_exec := "tailwindcss-v4.2.2"
     --minify \
     && echo "" >> {{ justfile_directory() }}/static/css/output.css
 
+
+# Have Vite build frontend resources
+@vite-build:
+    npm run build
+
+
 # Run tests which rely on dockerized services
 @test:
     #!/usr/bin/env bash

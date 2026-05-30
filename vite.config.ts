@@ -11,7 +11,7 @@ export default defineConfig({
   ],
 
   build: {
-    outDir: path.resolve(__dirname, './static'), // Place in same folder as non-vite assets
+    outDir: path.resolve(__dirname, './static'), // Place in same folder as non-vite assets. Matches a Django STATICFILES_DIRS entry
     emptyOutDir: false,
     manifest: true,
 

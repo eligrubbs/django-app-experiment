@@ -14,6 +14,10 @@ tailwind:
     -o {{ justfile_directory() }}/static/css/output.css \
     --watch --optimize
 
+# run vite dev server
+vite:
+    npm run dev
+
 # Spin up all services except the webapp. So you can run it locally
 @not-app-up:
     # To mimic production, start all services that are NOT the app

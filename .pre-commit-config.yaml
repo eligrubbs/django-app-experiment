@@ -9,12 +9,20 @@ default_install_hook_types:
 repos:
   - repo: local
     hooks:
-    - id: tailwind-minify
+    # - id: tailwind-minify
+    #   stages: [pre-commit]
+    #   name: "Minify Tailwind Output"
+    #   files: server/src/glasscap/frontend/static/css/output.css
+    #   language: unsupported
+    #   entry: just ci tailwind-minify
+    #   pass_filenames: false
+    - id: vite-build
       stages: [pre-commit]
-      name: "Minify Tailwind Output"
-      files: server/src/glasscap/frontend/static/css/output.css
+      name: "Vite Build"
+      # Match any file in frontend/src
+      files: frontend/src/^.*$
       language: unsupported
-      entry: just ci tailwind-minify
+      entry: just ci vite-build
       pass_filenames: false
     # - id: heavy-tests # Do not use this hook. Productivity drain...
     #   name: Run full dockerized test set
