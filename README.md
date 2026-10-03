@@ -1,13 +1,23 @@
 # django-app-experiment
 
-Check out the website live at [hairbrush.eligrubbs.com](https://hairbrush.eligrubbs.com)
-
-No gurantees will be made as to the integrity of your data. I frequently destroy production since this is my sandbox for learning.
-
+WAS live at [hairbrush.eligrubbs.com](https://hairbrush.eligrubbs.com), but I am done paying for it to be live.
 
 ## Important stuff
 
-So that is project mimics a real one, instead of strewing `my_app` everywhere, I am going to pretend I am building some app called "hairbrush". That is a pretty random name; it is very unlikely to get confused with any external package, convention, application, or anything other than the app I am building.
+So that this project mimics a real one, instead of strewing `my_app` everywhere, I am going to pretend I am building some app called "hairbrush". That is a pretty random name; it is very unlikely to get confused with any external package, convention, application, or anything other than the app I am building.
+
+## Main Technologies/Tools Used
+
+- [Django](https://www.djangoproject.com/)
+- [Docker](https://www.docker.com/)
+- [Github Actions](https://github.com/features/actions)
+- [Terraform](https://developer.hashicorp.com/terraform)
+- [Cloudflare](https://cloudflare.com)
+- [Render](https://render.com)
+- [Blacksmith](https://blacksmith.sh)
+- [just](https://just.systems)
+- [vite](https://vite.dev)
+- [Stripe](https://stripe.com)
 
 ## Motivation
 
@@ -31,5 +41,3 @@ To that end, not only will I use git, but when I think I have reached a nice mil
 
 
 TODO: migration checks using file patterns cleanly using filter-paths action. See Sentry [example](https://github.com/getsentry/sentry/blob/8e21c10a3eb178b48c8de7c14ae9fb3e5cf41278/.github/file-filters.yml)
-
-TODO: add heroicons https://github.com/adamchainz/heroicons
